@@ -1,6 +1,10 @@
 #Login-Button {
-  border: solid red;
-  color : blue
+  border: solid blue;
+}
+
+.Link-Login {
+  color: blue;
+  font-weight: bold;
 }
 
 .App {

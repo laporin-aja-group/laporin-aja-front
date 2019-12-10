@@ -29,7 +29,8 @@ export default class Header extends Component {
             </Typography>
             <Button color="inherit" id="Login-Button">
               <Link to="/login"
-              className="navbarMember"
+              className="Link-Login"
+              style={{ textDecoration: "none" }}
               >
                 Login</Link>
             </Button>
