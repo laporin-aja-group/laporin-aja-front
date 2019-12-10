@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     paper: {
+        backgroundColor: "white",
         border: "solid",
         borderRadius: "3%",
         marginTop: theme.spacing(8),
@@ -38,7 +39,8 @@ function Login(props) {
     return (
         <Container 
         component="main" 
-        maxWidth="xs">
+        maxWidth="xs"
+        >
             <CssBaseline />
             <div className={classes.paper}>
                     <img src={image} alt="banner" id="Login-Image"/> 
@@ -61,6 +63,7 @@ function Login(props) {
                             className={classes.form}
                             noValidate
                             onSubmit={handleSubmit}
+                            
                             style={{ margin:"0px", padding:"10px"}}
                         >
                             <TextField

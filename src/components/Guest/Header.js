@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import banner from "./banner.png"
-import Login from "../Login"
 export default class Header extends Component {
   render() {
     return (
@@ -11,14 +10,15 @@ export default class Header extends Component {
           position="static"
           style={{
             color: "white",
-            backgroundColor: "#c4c4c4"
+            backgroundColor: "#c4c4c4",
+            height:"100px"
           }}
         >
           <Toolbar>
             <Typography  variant="h6" style={{}}>
             <Link to="/"
             >
-              <img style={{width:'12%', paddingTop:'10px', paddingBottom:'10px'}} src={banner} alt="banner"/>
+              <img style={{width:'20%', paddingTop:'10px', paddingBottom:'10px'}} src={banner} alt="banner"/>
             </Link>
             </Typography>
             <Typography
@@ -28,16 +28,17 @@ export default class Header extends Component {
               }}
             >
             </Typography>
-            <Button color="inherit" id="Login-Button">
-              <Link to="/login"
-              className="Link-Login"
-              style={{ textDecoration: "none" }}
-              >
-                Login</Link>
+            <Button 
+            color="inherit" 
+            id="Login-Button"
+            component={Link}
+            to="/login"
+            style={{ width:"80px", height:"65px" , color:"blue" , fontWeight:"bold", fontSize:"16px" }}
+            >
+              Login
             </Button>
           </Toolbar>
         </AppBar>
-        <Login />
       </div>
     );
   }

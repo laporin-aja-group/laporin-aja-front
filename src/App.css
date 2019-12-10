@@ -1,9 +1,20 @@
-#Login-Button {
+body {
+  background-image: url("./assets/images/home.jpg");
+  position: fixed;
+  background-size: cover;
+}
+
+#Login-Form {
+  background-color: white;
+}
+
+#Login-Button:hover {
+  opacity: 60%;
   border: solid blue;
 }
 
 #Login-Image {
-  width: 120px;
+  width: 200px;
   padding: 10px;
 }
 
