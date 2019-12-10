@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import banner from "./banner.png"
+import Login from "../Login"
 export default class Header extends Component {
   render() {
     return (
@@ -36,6 +37,7 @@ export default class Header extends Component {
             </Button>
           </Toolbar>
         </AppBar>
+        <Login />
       </div>
     );
   }

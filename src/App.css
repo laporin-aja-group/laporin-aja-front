@@ -2,6 +2,17 @@
   border: solid blue;
 }
 
+#Login-Image {
+  width: 120px;
+  padding: 10px;
+}
+
+#Login-Title {
+  margin-top: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+}
+
 .Link-Login {
   color: blue;
   font-weight: bold;
