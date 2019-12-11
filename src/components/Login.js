@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 function Login(props) {
     const classes = useStyles();
-    let urlLogin = process.env.REACT_APP_API_LOGIN_LOCAL;
+    let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
 
     return (
         <Container 
@@ -59,10 +59,14 @@ function Login(props) {
                     validate=""
                     onSubmit={values => {
                         axios
-                            .post(`${urlLogin}users/login`, values)
-                            .then(response => {
-                                console.log(response.data);
-                                if (response.data.message === "Email not registered! please register") {
+                            .post(`${urlLoginLive}users/login`, values)
+                            .then(response => {                                
+                                if (values.email === "" || values.password === "") {
+                                    swal.fire({
+                                        icon: 'error',
+                                        title: "Make sure your data is filled in correctly!",
+                                      })
+                                } else if (response.data.message === "Email not registered! please register") {
                                     swal.fire({
                                         title: 'There`s something wrong',
                                         text: `${response.data.message}`,
