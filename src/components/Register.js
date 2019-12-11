@@ -42,14 +42,7 @@ const useStyles = makeStyles(theme => ({
 function Register(props) {
 
     const classes = useStyles();
-    const [image, setImage] = React.useState(null)
-    const [type, setType] = React.useState(null)
 
-    const handleImage = event => {
-      setType(event.target.files[0])
-      setImage(URL.createObjectURL(event.target.files[0]))
-    }
-        
         return (
             <Container component="main" maxWidth="xs">
               <CssBaseline />
@@ -57,8 +50,7 @@ function Register(props) {
                     <img src={RegisterLogo} alt="register" id="Login-Image"/>
                 <Formik
                 initialValues={{
-                  firstName:"",
-                  lastName:"",
+                  fullName:"",
                   email:"",
                   password:""
                 }}
@@ -79,51 +71,49 @@ function Register(props) {
                 noValidate
                 style={{ margin:"0px", padding:"10px 30px 30px"}}
                 >
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+                  <Grid item xs={12}>
                       <TextField
-                        autoComplete="fname"
-                        name="firstName"
                         variant="outlined"
                         required
                         fullWidth
-                        id="firstName"
-                        label="First Name"
+                        id="fullname"
+                        label="Full Name"
+                        name="fullName"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.firstName}
-                        autoFocus
+                        defaultValue={values.fullName}
+                        autoComplete="fullname"
                       />
-                      <p
+                       <p
                       style={{
                         color:"red",
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="firstName" />
+                        <ErrorMessage name="fullName" />
                       </p>
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
                       <TextField
                         variant="outlined"
                         required
                         fullWidth
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
+                        id="phonenumber"
+                        label="Phone Number"
+                        name="phoneNumber"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.lastName}
-                        autoComplete="lname"
+                        defaultValue={values.fullName}
+                        autoComplete="phonenumber"
                       />
-                      <p
+                       <p
                       style={{
                         color:"red",
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="lastName" />
+                        <ErrorMessage name="phoneNumber" />
                       </p>
                     </Grid>
 
@@ -173,42 +163,6 @@ function Register(props) {
                         <ErrorMessage name="password" />
                       </p>
                     </Grid>
-                    <Grid item xs={6}>
-                      <input
-                          accept="/*"
-                          id="contained-button-file"
-                          type="file"
-                          style={{display: "none"}}
-                          onChange={event => {
-                            setFieldValue(
-                              "image", event.currentTarget.files[0]
-                            );
-                            handleImage(event)
-                          }}
-                      />
-                      <label htmlFor="contained-button-file">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          component="span"
-                        >Upload</Button>
-                      </label>
-                    </Grid>
-                    <Grid item xs={6}>
-                      {image && !type.type.includes("image") ? (
-                        <video width="100%" controls>
-                          <source src={image} type={image.type} />
-                        </video>
-                      ) : (
-                        <img 
-                        width={image && "100%"}
-                        src={image}
-                        alt=""
-                        id="preview-image"
-                      /> 
-                      )}                        
-                    </Grid>
-                  </Grid>
                   <Button
                     type="submit"
                     fullWidth
