@@ -8,6 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Formik, ErrorMessage } from "formik";
 import image from "./Guest/banner.png"
+import swal from "sweetalert2"
+import axios from "axios"
 
 const useStyles = makeStyles(theme => ({
     "@global": {
@@ -39,6 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 function Login(props) {
     const classes = useStyles();
+    let urlLogin = process.env.REACT_APP_API_LOGIN_LOCAL;
 
     return (
         <Container 
@@ -54,7 +57,42 @@ function Login(props) {
                         password: ""
                     }}
                     validate=""
-                    onSubmit=""
+                    onSubmit={values => {
+                        axios
+                            .post(`${urlLogin}users/login`, values)
+                            .then(response => {
+                                console.log(response.data);
+                                if (response.data.message === "Email not registered! please register") {
+                                    swal.fire({
+                                        title: 'There`s something wrong',
+                                        text: `${response.data.message}`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Register now'
+                                      }).then((result) => {
+                                        if (result.value) {
+                                            props.history.push("/register");
+                                        }
+                                      })
+                                } else if (response.data.message === "Password is wrong!") {
+                                    swal.fire({
+                                        icon: 'error',
+                                        title: `${response.data.message}`,
+                                      })
+                                } else {
+                                    if (response.data.message === "Login successfull") {
+                                        localStorage.setItem(
+                                            "token",
+                                            JSON.stringify(response.data.data.token)
+                                        );
+                                        props.history.push("/");
+                                    }
+                                }
+                            })
+                        
+                    }}
                 >
                     {({
                         values,
