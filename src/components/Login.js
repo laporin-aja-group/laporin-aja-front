@@ -60,8 +60,13 @@ function Login(props) {
                     onSubmit={values => {
                         axios
                             .post(`${urlLoginLive}users/login`, values)
-                            .then(response => {
-                                if (response.data.message === "Email not registered! please register") {
+                            .then(response => {                                
+                                if (values.email === "" || values.password === "") {
+                                    swal.fire({
+                                        icon: 'error',
+                                        title: "Make sure your data is filled in correctly!",
+                                      })
+                                } else if (response.data.message === "Email not registered! please register") {
                                     swal.fire({
                                         title: 'There`s something wrong',
                                         text: `${response.data.message}`,
