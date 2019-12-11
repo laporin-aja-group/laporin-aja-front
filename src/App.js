@@ -12,14 +12,17 @@ class App extends Component {
           <Switch>
               <Route>
                 <Route path="/" exact={true}>
-                  <Team />
+                  
                 </Route>
                 <Route path="/login" >
                   <Login />
                 </Route>
                 <Route path="/register" >
                   <Register />
-                </Route>    
+                </Route>  
+                <Route path="/team" >
+                  <Team /> 
+                </Route> 
               </Route>
           </Switch>
         </Router>

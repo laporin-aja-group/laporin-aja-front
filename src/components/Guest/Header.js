@@ -33,8 +33,17 @@ export default class Header extends Component {
             color="inherit" 
             id="Login-Button"
             component={Link}
+            to="/team"
+            style={{ width:"6%", height:"60px" , color:"blue" , fontWeight:"bold", fontSize:"16px", marginRight:"15px" }}
+            >
+              Team
+            </Button>
+            <Button 
+            color="inherit" 
+            id="Login-Button"
+            component={Link}
             to="/login"
-            style={{ width:"80px", height:"65px" , color:"blue" , fontWeight:"bold", fontSize:"16px" }}
+            style={{ width:"6%", height:"60px" , color:"blue" , fontWeight:"bold", fontSize:"16px" }}
             >
               Login
             </Button>
