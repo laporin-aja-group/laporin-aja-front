@@ -8,10 +8,11 @@ export default class Header extends Component {
       <div style={{ flexGrow: 1 }}>
         <AppBar
           position="static"
+          id="Appbar-Header-Guest"
           style={{
             color: "white",
             backgroundColor: "#c4c4c4",
-            height:"100px"
+            height:"100%"
           }}
         >
           <Toolbar>

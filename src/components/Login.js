@@ -29,7 +29,11 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1)
     },
     submit: {
-        margin: theme.spacing(3, 0, 2)
+        margin: theme.spacing(3, 0, 2),
+        width: "50%",
+        marginLeft: "25%",
+        display: "flex",
+        alignItems: "center"
     }
 }));
 
@@ -64,7 +68,7 @@ function Login(props) {
                             noValidate
                             onSubmit={handleSubmit}
                             
-                            style={{ margin:"0px", padding:"10px"}}
+                            style={{ margin:"0px", padding:"10px 30px 30px"}}
                         >
                             <TextField
                                 variant="outlined"
