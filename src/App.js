@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router , Route, Switch } from 'react-router-dom'
-import  { GuestHeader , Login , Team , Register } from "./components";
+import  { UserHeader , Login , Team , Register } from "./components";
 
 class App extends Component {
   render() {
     return (
       <div className="demo-big-content">
         <Router>
-          <GuestHeader/>
+          <UserHeader/>
           <Switch>
               <Route>
                 <Route path="/" exact={true}>
-                  
+                  {/* Kosong dlu */}
                 </Route>
                 <Route path="/login" >
                   <Login />

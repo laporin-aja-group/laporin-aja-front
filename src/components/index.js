@@ -1,4 +1,4 @@
-export { default as Layout } from './Layout'
+export { default as UserHeader } from './User/Header'
 export { default as GuestHeader } from './Guest/Header'
 export { default as Team } from './Team'
 export { default as Login } from './Login'

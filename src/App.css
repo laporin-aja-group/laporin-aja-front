@@ -7,6 +7,11 @@ body {
   background-repeat: no-repeat;
 }
 
+.Button-User:hover {
+  opacity: 60%;
+  border: solid blue;
+}
+
 #Login-Button:hover {
   opacity: 60%;
   border: solid blue;
