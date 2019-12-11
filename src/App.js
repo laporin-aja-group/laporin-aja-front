@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router , Route, Switch } from 'react-router-dom'
-import  { GuestHeader , Login , Team } from "./components";
+import  { GuestHeader , Login , Team , Register } from "./components";
 
 class App extends Component {
   render() {
@@ -11,12 +11,15 @@ class App extends Component {
           <GuestHeader/>
           <Switch>
               <Route>
-              <Route path="/" exact={true}>
-                <Team />
-              </Route>
+                <Route path="/" exact={true}>
+                  <Team />
+                </Route>
                 <Route path="/login" >
                   <Login />
-                </Route>  
+                </Route>
+                <Route path="/register" >
+                  <Register />
+                </Route>    
               </Route>
           </Switch>
         </Router>

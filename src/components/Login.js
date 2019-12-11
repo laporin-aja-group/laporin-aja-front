@@ -105,7 +105,6 @@ function Login(props) {
                             className={classes.form}
                             noValidate
                             onSubmit={handleSubmit}
-                            
                             style={{ margin:"0px", padding:"10px 30px 30px"}}
                         >
                             <TextField
@@ -161,14 +160,14 @@ function Login(props) {
                             >
                                 Sign In
                             </Button>
-                            <Grid container>
+                            <Grid container justify="flex-start">
                                 <Grid item>
-                                    <Link 
-                                    to="/register" 
-                                    variant="body2"
-                                    style={{ color : "blue" }}>
-                                        {"Don't have an account?"}
-                                    </Link>
+                                <Link 
+                                to="/register" 
+                                variant="body2"
+                                style={{color : "blue"}}>
+                                    Don't have an account?
+                                </Link>
                                 </Grid>
                             </Grid>
                         </form>
