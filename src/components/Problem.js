@@ -4,15 +4,14 @@ import { Formik, ErrorMessage } from "formik";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import RegisterLogo from "./Guest/banner.png"
-import NumberFormat from "react-number-format"
 import axios from "axios"
 import { registerValidation } from "./validation"
 import Swal from "sweetalert2"
+import ReactFilestack from 'filestack-react';
 
 const useStyles = makeStyles(theme => ({
     "@global": {
@@ -39,7 +38,14 @@ const useStyles = makeStyles(theme => ({
         marginLeft: "25%",
         display: "flex",
         alignItems: "center"
+    },
+    filestack: {
+        margin: theme.spacing(3, 0, 2),
+        width: "30%",
+        display: "flex",
+        alignItems: "center"
     }
+
 }));
 
 
@@ -55,10 +61,9 @@ function Register(props) {
                     <img src={RegisterLogo} alt="register" id="Login-Image"/>
                 <Formik
                 initialValues={{
-                  fullName: "",
-                  phoneNumber: "",
-                  email: "",
-                  password: ""
+                  problem: "",
+                  detailLocation: "",
+                  description: ""
 
                 }}
                 validate={registerValidation}
@@ -97,18 +102,18 @@ function Register(props) {
                 noValidate
                 style={{ margin:"0px", padding:"10px 30px 30px"}}
                 >
-                  <Grid item xs={12}>
+                    <Grid item xs={12}>
                       <TextField
                         variant="outlined"
                         required
                         fullWidth
-                        id="fullName"
-                        label="Full Name"
-                        name="fullName"
+                        id="problem"
+                        label="Problem"
+                        name="problem"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.fullName}
-                        autoComplete="fullName"
+                        defaultValue={values.problem}
+                        autoComplete="problem"
                       />
                        <p
                       style={{
@@ -116,31 +121,7 @@ function Register(props) {
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="fullName" />
-                      </p>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <NumberFormat
-                        variant="outlined" 
-                        required 
-                        fullWidth 
-                        id="phoneNumber"
-                        label="Phone Number"
-                        name="phoneNumber"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        defaultValue={values.fullName}
-                        autoComplete="phoneNumber"
-                        customInput={TextField} 
-                        format="+62 (###) #### ####"/>
-                       <p
-                      style={{
-                        color:"red",
-                        fontStyle:"italic"
-                      }}
-                      >
-                        <ErrorMessage name="phoneNumber" />
+                        <ErrorMessage name="problem" />
                       </p>
                     </Grid>
 
@@ -149,13 +130,14 @@ function Register(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
+                        id="detailLocation"
+                        label="Detail Location"
+                        name="detailLocation"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.email}
-                        autoComplete="email"
+                        defaultValue={values.detailLocation}
+                        autoComplete="detailLocation"
+                        multiline
                       />
                        <p
                       style={{
@@ -163,7 +145,7 @@ function Register(props) {
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="email" />
+                        <ErrorMessage name="detailLocation" />
                       </p>
                     </Grid>
 
@@ -172,24 +154,34 @@ function Register(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
+                        id="description"
+                        label="Description"
+                        name="description"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.password}
-                        autoComplete="current-password"
+                        defaultValue={values.description}
+                        autoComplete="description"
+                        multiline
                       />
-                      <p
+                       <p
                       style={{
                         color:"red",
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="password" />
+                        <ErrorMessage name="description" />
                       </p>
                     </Grid>
+                    
+                    <ReactFilestack
+                    apikey={'ArL9fk9FQ9uV3Lj8BYAIJz'}
+                    componentDisplayMode={{
+                        type: 'button',
+                        customText: 'Choose File',
+                        customClass: classes.filestack
+                    }}
+                    />
+
                   <Button
                     type="submit"
                     fullWidth
@@ -197,15 +189,8 @@ function Register(props) {
                     color="primary"
                     className={classes.submit}
                   >
-                    Sign Up
+                    Submit
                   </Button>
-                  <Grid container justify="flex-end">
-                    <Grid item>
-                      <Link href="/login" variant="body2">
-                        Already have an account? Sign in
-                      </Link>
-                    </Grid>
-                  </Grid>
                 </form>
                 )}
                 </Formik>
