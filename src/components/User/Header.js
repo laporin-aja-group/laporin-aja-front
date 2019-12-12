@@ -1,33 +1,43 @@
 import React, { Component } from "react";
-import { Layout, Header, Navigation, Drawer, Content } from "react-mdl";
-import Main from "./Main";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
-export default class GuestHeader extends Component {
+import Test from './Test'
+export default class Header extends Component {
   render() {
     return (
-        <Layout>
-          <Header title="User Dashboard" scroll>
-            <Navigation>
-              <Link to="/" className="Button-User">Home</Link>
-              <Link to="/aduan" className="Button-User">Aduan</Link>
-              <Link to="/contact" className="Button-User">Contact</Link>
-              <Link to="/logout" className="Button-User">Logout</Link>
-            </Navigation>
-          </Header>
-          <Drawer title="User Dashboard">
-            <Navigation>
-              <Link to="/">Home</Link>
-              <Link to="/aduan">Aduan</Link>
-              <Link to="/contact">Contact</Link>
-              <Link to="/logout">Logout</Link>
-            </Navigation>
-          </Drawer>
-          <Content>
-            <div className="page-content" />
-            <Main />
-          </Content>
-        </Layout>
+      <div style={{ flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          id="Appbar-Header-Guest"
+          style={{
+            color: "white",
+            backgroundColor: "#c4c4c4",
+            height:"100%"
+          }}
+        >
+          <Toolbar>
+            <Typography  variant="h6" style={{}}>
+                <Test />
+            </Typography>
+            <Typography
+              variant="h6"
+              style={{
+                flexGrow: 1
+              }}
+            >
+            </Typography>
+            <Button 
+            color="inherit" 
+            id="Login-Button"
+            component={Link}
+            to="/logout"
+            style={{ width:"7%", height:"60px" , color:"blue" , fontWeight:"bold", fontSize:"16px"}}
+            >
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
     );
   }
 }

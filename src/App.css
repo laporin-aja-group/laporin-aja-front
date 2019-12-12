@@ -7,6 +7,26 @@ body {
   background-repeat: no-repeat;
 }
 
+#Menu-User {
+  border-radius: 10%;
+  border: solid;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#Navbar-User {
+  background-color: #c4c4c4;
+  color: blue;
+  height: 12%;
+}
+
+.Button-User {
+  color: black!important;
+  height: 80%;
+  width: 75%;
+  align-items: center;
+}
+
 .Button-User:hover {
   opacity: 60%;
   border: solid blue;
@@ -15,6 +35,7 @@ body {
 #Login-Button:hover {
   opacity: 60%;
   border: solid blue;
+  padding: 15px
 }
 
 #Login-Image {
