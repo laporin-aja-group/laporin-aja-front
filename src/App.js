@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router , Route, Switch } from 'react-router-dom'
-import  { UserHeader , Login , Team , Register, LandingPage } from "./components";
+import  { UserHeader , Login , Team , Register, LandingPage, Table } from "./components";
 
 class App extends Component {
   render() {
@@ -25,6 +25,9 @@ class App extends Component {
                 </Route> 
                 <Route path="/dashboard" >
                   <LandingPage /> 
+                </Route>   
+                <Route path="/table" >
+                  <Table /> 
                 </Route> 
               </Route>
           </Switch>
