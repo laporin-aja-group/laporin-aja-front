@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import Test from './Test'
+import Main from './Main'
 export default class Header extends Component {
   render() {
     return (
@@ -17,7 +17,7 @@ export default class Header extends Component {
         >
           <Toolbar>
             <Typography  variant="h6" style={{}}>
-                <Test />
+                <Main />
             </Typography>
             <Typography
               variant="h6"
