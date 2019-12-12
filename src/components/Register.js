@@ -9,6 +9,10 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import RegisterLogo from "./Guest/banner.png"
+import NumberFormat from "react-number-format"
+import axios from "axios"
+import { registerValidation } from "./validation"
+import Swal from "sweetalert2"
 
 const useStyles = makeStyles(theme => ({
     "@global": {
@@ -42,6 +46,7 @@ const useStyles = makeStyles(theme => ({
 function Register(props) {
 
     const classes = useStyles();
+    let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
 
         return (
             <Container component="main" maxWidth="xs">
@@ -50,12 +55,33 @@ function Register(props) {
                     <img src={RegisterLogo} alt="register" id="Login-Image"/>
                 <Formik
                 initialValues={{
-                  fullName:"",
-                  email:"",
-                  password:""
+                  fullName: "",
+                  phoneNumber: "",
+                  email: "",
+                  password: ""
+
                 }}
-                validate={""}
-                onSubmit={""}
+                validate={registerValidation}
+                onSubmit={values => {
+                  axios
+                      .post(`${urlLoginLive}users`, {...values, role:"users"})
+                      .then(response => {
+                        if (response.status === 201) {
+                          Swal.fire({
+                            icon: 'success',
+                            title: 'Register Successfully',
+                            text: 'Now you can login',
+                          }).then(response => {
+                            props.history.push("/dashboard")
+                          })
+                        } else {
+                          Swal.fire({
+                            icon: 'error',
+                            title: 'There`s something error when you register, please register again'
+                          })
+                        }
+                      })
+                }}
                 >
                   {({
                     values,
@@ -76,13 +102,13 @@ function Register(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        id="fullname"
+                        id="fullName"
                         label="Full Name"
                         name="fullName"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         defaultValue={values.fullName}
-                        autoComplete="fullname"
+                        autoComplete="fullName"
                       />
                        <p
                       style={{
@@ -95,18 +121,19 @@ function Register(props) {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="phonenumber"
+                      <NumberFormat
+                        variant="outlined" 
+                        required 
+                        fullWidth 
+                        id="phoneNumber"
                         label="Phone Number"
                         name="phoneNumber"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         defaultValue={values.fullName}
-                        autoComplete="phonenumber"
-                      />
+                        autoComplete="phoneNumber"
+                        customInput={TextField} 
+                        format="+62 (###) #### ####"/>
                        <p
                       style={{
                         color:"red",
