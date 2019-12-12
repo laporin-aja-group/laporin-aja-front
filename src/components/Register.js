@@ -1,10 +1,9 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -72,7 +71,7 @@ function Register(props) {
                             title: 'Register Successfully',
                             text: 'Now you can login',
                           }).then(response => {
-                            props.history.push("/dashboard")
+                            props.history.push("/login")
                           })
                         } else {
                           Swal.fire({
@@ -199,11 +198,14 @@ function Register(props) {
                   >
                     Sign Up
                   </Button>
-                  <Grid container justify="flex-end">
+                  <Grid container justify="flex-start">
                     <Grid item>
-                      <Link href="/login" variant="body2">
-                        Already have an account? Sign in
-                      </Link>
+                    <Link 
+                    to="/login" 
+                    variant="body2"
+                    style={{color : "blue"}}>
+                        Already have an account? Login
+                    </Link>
                     </Grid>
                   </Grid>
                 </form>
