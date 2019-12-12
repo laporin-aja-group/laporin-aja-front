@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import InboxIcon from '@material-ui/icons/NotificationsNone';
 import MailIcon from '@material-ui/icons/Mail';
 
 const useStyles = makeStyles({
@@ -40,8 +40,10 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['Inbox'].map((text, index) => (
-          <ListItem button key={text}>
+        {['Aduan'].map((text, index) => (
+          <ListItem 
+          button key={text}
+          style={{ marginTop:'15%'}}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
