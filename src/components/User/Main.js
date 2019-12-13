@@ -60,6 +60,18 @@ export default function SwipeableTemporaryDrawer() {
           </ListItem>
         ))}
 
+        {['Report'].map((text, index) => (
+          <ListItem 
+          button 
+          key={text}
+          component={Link}
+          to="/report-users"
+          >
+            <ListItemIcon><NotifIcon /></ListItemIcon>
+            <ListItemText primary={text} ></ListItemText>
+          </ListItem>
+        ))}
+
         {['List Problem'].map((text, index) => (
           <ListItem 
           button 
