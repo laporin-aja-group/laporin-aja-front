@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from './helpers'
-import Swal from 'sweetalert2'
 
 class ListProblem extends React.Component {
   constructor(props) {

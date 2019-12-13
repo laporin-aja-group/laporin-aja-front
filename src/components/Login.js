@@ -89,7 +89,6 @@ function Login(props) {
                                     if (response.data.message === "Login successfull") {
                                         swal.fire({
                                             icon: 'success',
-<<<<<<< HEAD
                                             title: "Login Succesfully",
                                           }).then((result) => {
                                             localStorage.setItem(
@@ -98,15 +97,6 @@ function Login(props) {
                                             );
                                             props.history.push("/problem");
                                           })
-=======
-                                            title: 'Login Successfully',
-                                        })
-                                        localStorage.setItem(
-                                            "token",
-                                            JSON.stringify(response.data.data.token)
-                                        );
-                                        props.history.push("/");
->>>>>>> 522eb640a3bfde56842773499bc27c18625811d7
                                     }
                                 }
                             })
