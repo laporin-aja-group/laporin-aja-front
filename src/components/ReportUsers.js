@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -9,12 +10,13 @@ import Typography from '@material-ui/core/Typography';
 import { verify, axiosReportsUsers } from './helpers'
 import Swal from 'sweetalert2'
 
-export default class ReportUsers extends React.Component{
+class ReportUsers extends React.Component{
     constructor(props) {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            dataReportProcess: []
         };
     }
 
@@ -29,11 +31,25 @@ export default class ReportUsers extends React.Component{
             });
     }
 
+    showReportsByProcess = () => {
+        axiosReportsUsers()
+            .get(`/reports/${verify().email}/Sent`)
+            .then(response => {
+                this.setState({ dataReportProcess: response.data.data});
+            }).catch(error => {
+                console.log(error);
+            });
+    }
+
+
     componentDidMount = () => {
-        this.showUserReports()
+        this.showUserReports();
+        this.showReportsByProcess();
      }
 
      submitProblem = (item) => {
+         console.log(this.state.dataReportProcess.length);
+         
         Swal.fire({
             title: 'Make sure all your reports are correct!',
             icon: 'warning',
@@ -43,11 +59,49 @@ export default class ReportUsers extends React.Component{
             confirmButtonText: 'Submit now'
           }).then((result) => {
             if (result.value) {
-              Swal.fire(
-                'Submitted',
-                'Your report has been sent, please wait for confirmation.',
-                'success'
-              )
+                if (this.state.dataReportProcess.length >= 2) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'You cannot send a report, please wait for the report to be received from the admin'
+                      })
+                } else {
+                    axiosReportsUsers()
+                    .post(`/reports`, {
+                        problem : item.problem,
+                        problemSolving : "Your report has been sent",
+                        location : item.location,
+                        description : item.description,
+                        image : item.image,
+                        process : "Sent",
+                        note : "Your report has been sent",
+                        user : item.user
+                    }).then(response => {
+                        if (response.status === 200) {
+                            axiosReportsUsers()
+                                .delete(`/report-users/${item._id}`)
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        Swal.fire(
+                                            'Submitted',
+                                            'Your report has been sent, please wait for confirmation.',
+                                            'success'
+                                        )
+                                        this.props.history.push("/listproblem")
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'There`s something error when you submit, please submit again'
+                                        })
+                                    }
+                                })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'There`s something error when you submit, please submit again'
+                            })
+                        }
+                    });
+                }
             }
           })
      }
@@ -121,3 +175,4 @@ export default class ReportUsers extends React.Component{
         )
     }
 }
+export default withRouter(ReportUsers)

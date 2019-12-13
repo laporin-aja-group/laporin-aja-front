@@ -52,6 +52,7 @@ function Register(props) {
 
     const classes = useStyles();
     let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
+    let fileStack = process.env.REACT_APP_API_KEY_FILESTACK;
 
         return (
             <Container component="main" maxWidth="xs">
@@ -66,7 +67,6 @@ function Register(props) {
                 }}
                 validate=""
                 onSubmit={values => {
-                  console.log(values);
                   
                   if (values.problem === "" || values.location === "" || values.description === "" || values.image === null) {
                     Swal.fire({
@@ -75,7 +75,7 @@ function Register(props) {
                     })
                   } else {
                   axiosReportsUsers()
-                    .post(`http://localhost:5010/report-users`, {...values, user : verify()._id})
+                    .post(`${urlLoginLive}report-users`, {...values, user : verify()._id})
                     .then(response => {
                       if (response.status === 200) {
                         Swal.fire({
@@ -182,7 +182,7 @@ function Register(props) {
                     </Grid>
                     
                     <ReactFilestack
-                    apikey={`ArL9fk9FQ9uV3Lj8BYAIJz`}
+                    apikey={fileStack}
                     actionOptions ={{
                       accept: ["image/*", "video/*"]
                     }}
