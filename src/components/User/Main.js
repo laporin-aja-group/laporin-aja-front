@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import NotifIcon from '@material-ui/icons/NotificationsNone';
 import ViewListIcon from '@material-ui/icons/ViewList';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -67,7 +68,7 @@ export default function SwipeableTemporaryDrawer() {
           component={Link}
           to="/report-users"
           >
-            <ListItemIcon><NotifIcon /></ListItemIcon>
+            <ListItemIcon><ReceiptIcon /></ListItemIcon>
             <ListItemText primary={text} ></ListItemText>
           </ListItem>
         ))}
