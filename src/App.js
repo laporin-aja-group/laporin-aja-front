@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router , Route, Switch } from 'react-router-dom'
-import  { Header , Login , Team , Register, LandingPage , Problem, Table, ReportsUsers, ListProblem } from "./components";
+import  { Header , Login , Team , Register, LandingPage , Problem, ReportsUsers, ListProblem } from "./components";
 
 class App extends Component {
   render() {

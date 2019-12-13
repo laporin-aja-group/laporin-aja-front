@@ -87,11 +87,15 @@ function Login(props) {
                                       })
                                 } else {
                                     if (response.data.message === "Login successfull") {
+                                        swal.fire({
+                                            icon: 'success',
+                                            title: 'Login Successfully',
+                                        })
                                         localStorage.setItem(
                                             "token",
                                             JSON.stringify(response.data.data.token)
                                         );
-                                        props.history.push("/problem");
+                                        props.history.push("/");
                                     }
                                 }
                             })

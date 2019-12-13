@@ -75,7 +75,7 @@ function Register(props) {
                     })
                   } else {
                   axiosReportsUsers()
-                    .post(`http://localhost:5010/report-users`, {...values, user : verify()._id})
+                    .post(`${urlLoginLive}report-users`, {...values, user : verify()._id})
                     .then(response => {
                       if (response.status === 200) {
                         Swal.fire({
