@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router , Route, Switch } from 'react-router-dom'
-import  { UserHeader , Login , Team , Register, LandingPage , Problem, ListProblem } from "./components";
+import  { Header , Login , Team , Register, LandingPage , Problem, ListProblem } from "./components";
 
 class App extends Component {
   render() {
     return (
       <div className="demo-big-content">
         <Router>
-          <UserHeader/>
+          <Header/>
           <Switch>
               <Route>
                 <Route path="/" exact={true}>
