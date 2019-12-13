@@ -8,10 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import RegisterLogo from "./Guest/banner.png"
-import axios from "axios"
-import { registerValidation } from "./validation"
 import Swal from "sweetalert2"
 import ReactFilestack from 'filestack-react';
+import { verify, axiosReportsUsers } from "./helpers"
 
 const useStyles = makeStyles(theme => ({
     "@global": {
@@ -62,30 +61,38 @@ function Register(props) {
                 <Formik
                 initialValues={{
                   problem: "",
-                  detailLocation: "",
+                  location: "",
                   description: ""
-
                 }}
-                validate={registerValidation}
+                validate=""
                 onSubmit={values => {
-                  axios
-                      .post(`${urlLoginLive}users`, {...values, role:"users"})
-                      .then(response => {
-                        if (response.status === 201) {
-                          Swal.fire({
-                            icon: 'success',
-                            title: 'Register Successfully',
-                            text: 'Now you can login',
-                          }).then(response => {
-                            props.history.push("/dashboard")
-                          })
-                        } else {
-                          Swal.fire({
-                            icon: 'error',
-                            title: 'There`s something error when you register, please register again'
-                          })
-                        }
-                      })
+                  console.log(values);
+                  
+                  if (values.problem === "" || values.location === "" || values.description === "" || values.image === null) {
+                    Swal.fire({
+                      icon: 'error',
+                      title: "Make sure your report is filled in correctly!",
+                    })
+                  } else {
+                  axiosReportsUsers()
+                    .post(`http://localhost:5010/report-users`, {...values, user : verify()._id})
+                    .then(response => {
+                      if (response.status === 200) {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Add Report Successfully',
+                          text: 'Now you can check your report',
+                        }).then(response => {
+                          props.history.push("/report-users")
+                        })
+                      } else {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'There`s something error when you add report, please add report again'
+                        })
+                      }
+                    })
+                  }
                 }}
                 >
                   {({
@@ -130,13 +137,13 @@ function Register(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        id="detailLocation"
+                        id="location"
                         label="Detail Location"
-                        name="detailLocation"
+                        name="location"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.detailLocation}
-                        autoComplete="detailLocation"
+                        defaultValue={values.location}
+                        autoComplete="location"
                         multiline
                       />
                        <p
@@ -145,17 +152,18 @@ function Register(props) {
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="detailLocation" />
+                        <ErrorMessage name="location" />
                       </p>
                     </Grid>
 
                     <Grid item xs={12}>
                       <TextField
                         variant="outlined"
+                        rows="4"
                         required
                         fullWidth
                         id="description"
-                        label="Description"
+                        label="Description (Optional)"
                         name="description"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -174,7 +182,16 @@ function Register(props) {
                     </Grid>
                     
                     <ReactFilestack
-                    apikey={'ArL9fk9FQ9uV3Lj8BYAIJz'}
+                    apikey={`ArL9fk9FQ9uV3Lj8BYAIJz`}
+                    actionOptions ={{
+                      accept: ["image/*", "video/*"]
+                    }}
+                    onSuccess={(res) => {
+                      setFieldValue(
+                        "image", res.filesUploaded[0].url
+                      );
+                      
+                    }}
                     componentDisplayMode={{
                         type: 'button',
                         customText: 'Choose File',

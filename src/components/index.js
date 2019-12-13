@@ -6,4 +6,5 @@ export { default as Register } from './Register'
 export { default as LandingPage } from './Landingpage'
 export { default as Problem } from './Problem'
 export { default as Table } from './Table'
+export { default as ReportsUsers } from './ReportUsers'
 

@@ -91,7 +91,7 @@ function Login(props) {
                                             "token",
                                             JSON.stringify(response.data.data.token)
                                         );
-                                        props.history.push("/");
+                                        props.history.push("/problem");
                                     }
                                 }
                             })
