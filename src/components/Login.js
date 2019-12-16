@@ -8,6 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Formik, ErrorMessage } from "formik";
 import image from "./Guest/banner.png"
+import swal from "sweetalert2"
+import axios from "axios"
 
 const useStyles = makeStyles(theme => ({
     "@global": {
@@ -29,12 +31,17 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1)
     },
     submit: {
-        margin: theme.spacing(3, 0, 2)
+        margin: theme.spacing(3, 0, 2),
+        width: "50%",
+        marginLeft: "25%",
+        display: "flex",
+        alignItems: "center"
     }
 }));
 
 function Login(props) {
     const classes = useStyles();
+    let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
 
     return (
         <Container 
@@ -50,7 +57,51 @@ function Login(props) {
                         password: ""
                     }}
                     validate=""
-                    onSubmit=""
+                    onSubmit={values => {
+                        axios
+                            .post(`${urlLoginLive}users/login`, values)
+                            .then(response => {                                
+                                if (values.email === "" || values.password === "") {
+                                    swal.fire({
+                                        icon: 'error',
+                                        title: "Make sure your data is filled in correctly!",
+                                      })
+                                } else if (response.data.message === "Email not registered! please register") {
+                                    swal.fire({
+                                        title: 'There`s something wrong',
+                                        text: `${response.data.message}`,
+                                        icon: 'error',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Register now'
+                                      }).then((result) => {
+                                        if (result.value) {
+                                            props.history.push("/register");
+                                        }
+                                      })
+                                } else if (response.data.message === "Password is wrong!") {
+                                    swal.fire({
+                                        icon: 'error',
+                                        title: `${response.data.message}`,
+                                      })
+                                } else {
+                                    if (response.data.message === "Login successfull") {
+                                        swal.fire({
+                                            icon: 'success',
+                                            title: "Login Succesfully",
+                                          }).then((result) => {
+                                            localStorage.setItem(
+                                                "token",
+                                                JSON.stringify(response.data.data.token)
+                                            );
+                                            props.history.push("/problem");
+                                          })
+                                    }
+                                }
+                            })
+                        
+                    }}
                 >
                     {({
                         values,
@@ -63,8 +114,7 @@ function Login(props) {
                             className={classes.form}
                             noValidate
                             onSubmit={handleSubmit}
-                            
-                            style={{ margin:"0px", padding:"10px"}}
+                            style={{ margin:"0px", padding:"10px 30px 30px"}}
                         >
                             <TextField
                                 variant="outlined"
@@ -119,14 +169,14 @@ function Login(props) {
                             >
                                 Sign In
                             </Button>
-                            <Grid container>
+                            <Grid container justify="flex-start">
                                 <Grid item>
-                                    <Link 
-                                    to="/register" 
-                                    variant="body2"
-                                    style={{ color : "blue" }}>
-                                        {"Don't have an account?"}
-                                    </Link>
+                                <Link 
+                                to="/register" 
+                                variant="body2"
+                                style={{color : "blue"}}>
+                                    Don't have an account?
+                                </Link>
                                 </Grid>
                             </Grid>
                         </form>
