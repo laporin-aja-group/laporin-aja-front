@@ -18,7 +18,8 @@ class ListProblem extends React.Component {
       data : []
     };
   }
-  componentDidMount = () => {
+
+  showAllReport = () => {
     axiosReportsUsers()
       .get(`reports`)
       .then(response => {
@@ -27,6 +28,26 @@ class ListProblem extends React.Component {
       .catch(error => {
         console.log(error);
       });
+  }
+
+  componentDidMount = () => {
+    this.showAllReport();
+  }
+
+  onAccept = (id, process) => {
+    axiosReportsUsers()
+      .put(`reports/${id}`, {process:"Accepted"})
+      .then(response => {
+        console.log(response);
+        
+        if(response.status == 200) {
+          this.showAllReport();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    
   }
 
   render () {
@@ -54,7 +75,7 @@ class ListProblem extends React.Component {
                       <TableCell align="right">{item.description}</TableCell>
                       <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
                       <TableCell align="right">
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Accept</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained">Detail</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Reject</Button>
                       </TableCell>
