@@ -35,16 +35,33 @@ class ListProblem extends React.Component {
   }
 
   onCancel = (id) => {
-    axiosReportsUsers()
-      .delete(`reports/${id}`)
-      .then(response => {
-        if(response.status == 200) {
-          this.showAllReports();
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, cancel it!'
+    }).then((result) => {
+      if (result.value) {
+        axiosReportsUsers()
+        .delete(`reports/${id}`)
+        .then(response => {
+          if(response.status == 200) {
+            Swal.fire(
+              'Canceled!',
+              'Your report has been canceled.',
+              'success'
+            )
+            this.showAllReports();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+    })
   }
 
   render () {
