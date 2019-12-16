@@ -10,3 +10,6 @@ export { default as ReportsUsers } from "./ReportUsers";
 export { default as ListProblem } from "./ListProblem";
 export { default as Header } from "./Header";
 export { default as AdminHeader } from "./Admin/Header";
+export { default as DetailReportUser } from "./Data Report/User/DetailReport";
+export { default as ListProblemAdmin } from "./Data Report/Admin/ListProblem";
+export { default as ListSuggestion } from "./Data Report/Admin/ListSuggestion";
