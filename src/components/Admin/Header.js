@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Main from './Main'
-import swal from 'sweetalert'
+import swal from 'sweetalert2'
 
 const logOut = () => {
   localStorage.removeItem("token");
-  swal({
+  swal.fire({
       title: 'You are Loged out',
       icon: 'success'
   })

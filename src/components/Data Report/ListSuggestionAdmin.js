@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import ReportsUsers from './Data Report/User/ReportUsers'
-import Nodata from './Data Report/NoData'
+import ListSuggestion from './Admin/ListSuggestion'
+import Nodata from './NoData'
 import {withRouter} from 'react-router-dom'
-import { verify, axiosReportsUsers } from './helpers'
+import { axiosReportsUsers } from '../helpers'
 
-class ReportUsers extends Component {
+class ListSuggestionAdmin extends Component {
     constructor(props) {
         super(props);
 
@@ -15,7 +15,7 @@ class ReportUsers extends Component {
 
     componentDidMount = () => {
         axiosReportsUsers()
-            .get(`/report-users/email/${verify().email}`)
+            .get(`/suggest`)
             .then(response => {
                 this.setState({ data: response.data.data});
             })
@@ -31,7 +31,7 @@ class ReportUsers extends Component {
                     {this.state.data.length === 0 ? (
                         <Nodata/>
                     ) : (
-                        <ReportsUsers/>
+                        <ListSuggestion/>
                     )}
                 </Fragment>
             </div>
@@ -39,4 +39,4 @@ class ReportUsers extends Component {
     }
 }
 
-export default withRouter(ReportUsers)
+export default withRouter(ListSuggestionAdmin)
