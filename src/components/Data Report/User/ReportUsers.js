@@ -75,7 +75,9 @@ class ReportUsers extends React.Component{
                         image : item.image,
                         process : "Sent",
                         note : "Your report has been sent",
-                        user : item.user
+                        user : item.user,
+                        nameAdminHandling : "",
+                        emailAdminHandling : ""
                     }).then(response => {
                         if (response.status === 200) {
                             axiosReportsUsers()

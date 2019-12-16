@@ -34,7 +34,7 @@ class ListProblem extends React.Component {
     this.showAllReport();
   }
 
-  onAccept = (id, process) => {
+  onAccept = (id) => {
     Swal.fire({
       title: 'Make sure all reports are correct!',
       icon: 'warning',
@@ -45,7 +45,7 @@ class ListProblem extends React.Component {
     }).then((result) => {
       if (result.value) {
         axiosReportsUsers()
-        .put(`reports/${id}`, {process:"Accepted"})
+        .put(`/reports/${id}`, {process:"Accepted", note : "Thank you, your report will be processed immediately", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
         .then(response => {
           if(response.status == 200) {
             Swal.fire({
@@ -62,7 +62,7 @@ class ListProblem extends React.Component {
     }) 
   }
 
-  onReject = (id, note, process) => {
+  onReject = (id) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -89,7 +89,7 @@ class ListProblem extends React.Component {
             const data = answer.toString()
 
             axiosReportsUsers ()
-                .put(`/reports/${id}`, {note : data, process:"Rejected"})
+                .put(`/reports/${id}`, {note : data, process:"Rejected", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
                 .then(response => {
                   if (response.status === 200) {
                     Swal.fire({
@@ -141,9 +141,9 @@ class ListProblem extends React.Component {
                       <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process, item.nameAdminHandling, item.emailAdminHandling)}>Accept</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onReject(item._id, item.note, item.process)}>Reject</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onReject(item._id, item.note, item.process, item.nameAdminHandling, item.emailAdminHandling)}>Reject</Button>
                           </div> : item.process == "Rejected" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
                           </div> : <div>

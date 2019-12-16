@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -90,10 +90,10 @@ class ListProblem extends React.Component {
                       <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-report/${item._id}`}>Detail</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onCancel(item._id)}>Cancel</Button>
                           </div> : <div>
-                            <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                            <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" component={Link} to={`/detail-report/${item._id}`} color="primary">Detail</Button>
                           </div>
                         }
                       </TableCell>
