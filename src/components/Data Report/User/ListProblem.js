@@ -18,11 +18,29 @@ class ListProblem extends React.Component {
       data : []
     };
   }
-  componentDidMount = () => {
+
+  showAllReports = () => {
     axiosReportsUsers()
       .get(`reports/email/${verify().email}`)
       .then(response => {
         this.setState({ data: response.data.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  componentDidMount = () => {
+    this.showAllReports();
+  }
+
+  onCancel = (id) => {
+    axiosReportsUsers()
+      .delete(`reports/${id}`)
+      .then(response => {
+        if(response.status == 200) {
+          this.showAllReports();
+        }
       })
       .catch(error => {
         console.log(error);
@@ -54,8 +72,13 @@ class ListProblem extends React.Component {
                       <TableCell align="right">{item.description}</TableCell>
                       <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
                       <TableCell align="right">
-                        <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button> 
-                        <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Cancel</Button>
+                        {item.process == "Sent" ? <div>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onCancel(item._id)}>Cancel</Button>
+                          </div> : <div>
+                            <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                          </div>
+                        }
                       </TableCell>
                     </TableRow>
                   )

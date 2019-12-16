@@ -38,8 +38,6 @@ class ListProblem extends React.Component {
     axiosReportsUsers()
       .put(`reports/${id}`, {process:"Accepted"})
       .then(response => {
-        console.log(response);
-        
         if(response.status == 200) {
           this.showAllReport();
         }
