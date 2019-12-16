@@ -1,14 +1,16 @@
-export { default as UserHeader } from './User/Header'
-export { default as GuestHeader } from './Guest/Header'
-export { default as Team } from './Team'
-export { default as Login } from './Login'
-export { default as Register } from './Register'
-export { default as LandingPage } from './Landingpage'
-export { default as Problem } from './Problem'
-export { default as ReportsUsers } from './ReportUsers'
-export { default as ListProblem } from './ListProblem'
-export { default as ListProblemAdmin } from './Data Report/ListProblemAdmin'
-export { default as ListSuggestion } from './Data Report/ListSuggestionAdmin'
-export { default as EditProblemUser } from './Data Report/User/EditProblem'
-export { default as Header } from './Header'
-export { default as AdminHeader } from './Admin/Header'
+export { default as UserHeader } from "./User/Header";
+export { default as GuestHeader } from "./Guest/Header";
+export { default as Team } from "./Team";
+export { default as Contact } from "./Contact";
+export { default as Login } from "./Login";
+export { default as Register } from "./Register";
+export { default as LandingPage } from "./Landingpage";
+export { default as Problem } from "./Problem";
+export { default as ReportsUsers } from "./ReportUsers";
+export { default as ListProblem } from "./ListProblem";
+export { default as Header } from "./Header";
+export { default as AdminHeader } from "./Admin/Header";
+export { default as DetailReportUser } from "./Data Report/User/DetailReport";
+export { default as ListProblemAdmin } from "./Data Report/Admin/ListProblem";
+export { default as ListSuggestion } from "./Data Report/Admin/ListSuggestion";
+export { default as EditProblem } from "./Data Report/User/EditProblem";

@@ -96,6 +96,7 @@ function Login(props) {
                                             JSON.stringify(response.data.data.token)
                                         );
                                         props.history.push("/");
+                                        window.location.reload();
                                     }
                                 }
                             })

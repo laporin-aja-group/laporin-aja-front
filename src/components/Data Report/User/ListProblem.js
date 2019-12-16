@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -18,7 +18,8 @@ class ListProblem extends React.Component {
       data : []
     };
   }
-  componentDidMount = () => {
+
+  showAllReports = () => {
     axiosReportsUsers()
       .get(`reports/email/${verify().email}`)
       .then(response => {
@@ -27,6 +28,40 @@ class ListProblem extends React.Component {
       .catch(error => {
         console.log(error);
       });
+  }
+
+  componentDidMount = () => {
+    this.showAllReports();
+  }
+
+  onCancel = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, cancel it!'
+    }).then((result) => {
+      if (result.value) {
+        axiosReportsUsers()
+        .delete(`reports/${id}`)
+        .then(response => {
+          if(response.status == 200) {
+            Swal.fire(
+              'Canceled!',
+              'Your report has been canceled.',
+              'success'
+            )
+            this.showAllReports();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+    })
   }
 
   render () {
@@ -54,8 +89,13 @@ class ListProblem extends React.Component {
                       <TableCell align="right">{item.description}</TableCell>
                       <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
                       <TableCell align="right">
-                        <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button> 
-                        <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Cancel</Button>
+                        {item.process == "Sent" ? <div>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-report/${item._id}`}>Detail</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onCancel(item._id)}>Cancel</Button>
+                          </div> : <div>
+                            <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" component={Link} to={`/detail-report/${item._id}`} color="primary">Detail</Button>
+                          </div>
+                        }
                       </TableCell>
                     </TableRow>
                   )
