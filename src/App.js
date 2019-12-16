@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router , Route, Switch } from 'react-router-dom'
-import  { Header , Login , Team , Register, LandingPage , Problem, ReportsUsers, ListProblem, ListProblemAdmin, ListSuggestion } from "./components";
+import  { Header , Login , Team , Register, LandingPage , Problem, ReportsUsers, ListProblem, ListProblemAdmin, ListSuggestion, EditProblemUser } from "./components";
 
 class App extends Component {
   render() {
@@ -37,6 +37,9 @@ class App extends Component {
                 </Route>
                 <Route path="/list-suggestion" >
                   <ListSuggestion /> 
+                </Route>
+                <Route path="/edit-problem/:id" >
+                  <EditProblemUser /> 
                 </Route>
                 <Route path="/report-users" >
                   <ReportsUsers /> 
