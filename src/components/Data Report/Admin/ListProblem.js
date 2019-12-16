@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from '../../helpers'
-import swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 
 class ListProblem extends React.Component {
   constructor(props) {
@@ -35,21 +35,84 @@ class ListProblem extends React.Component {
   }
 
   onAccept = (id, process) => {
-    axiosReportsUsers()
-      .put(`reports/${id}`, {process:"Accepted"})
-      .then(response => {
-        if(response.status == 200) {
-          swal.fire({
-            icon: 'success',
-            title: 'Data Updated'
-          })
-          this.showAllReport();
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    
+    Swal.fire({
+      title: 'Make sure all reports are correct!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Accept now'
+    }).then((result) => {
+      if (result.value) {
+        axiosReportsUsers()
+        .put(`reports/${id}`, {process:"Accepted"})
+        .then(response => {
+          if(response.status == 200) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Data Updated'
+            })
+            this.showAllReport();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+    }) 
+  }
+
+  onReject = (id, note, process) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, reject it!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.mixin({
+          input: 'text',
+          confirmButtonText: 'Next &rarr;',
+          showCancelButton: true,
+          progressSteps: ['1']
+        }).queue([
+          {
+            title: 'Reject Report',
+            text: 'Give reasons why you reject this report'
+          }
+        ]).then((result) => {
+          if (result.value) {
+            const answer = result.value
+            const data = answer.toString()
+
+            axiosReportsUsers ()
+                .put(`/reports/${id}`, {note : data, process:"Rejected"})
+                .then(response => {
+                  if (response.status === 200) {
+                    Swal.fire({
+                      title: 'Succesfully reject report!',
+                      html: `
+                        Your Reasons:
+                        <pre><code>${data}</code></pre>
+                      `,
+                      confirmButtonText: 'OK'
+                    })
+                    this.showAllReport();
+                  } else {
+                    Swal.fire(
+                      'Cancelled',
+                      'Theres some error when reject',
+                      'error'
+                    )
+                  }
+                })
+          }
+        })
+      }
+    })
   }
 
   render () {
@@ -80,7 +143,7 @@ class ListProblem extends React.Component {
                         {item.process == "Sent" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Reject</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onReject(item._id, item.note, item.process)}>Reject</Button>
                           </div> : item.process == "Rejected" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
                           </div> : <div>
