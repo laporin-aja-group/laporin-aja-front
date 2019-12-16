@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from '../../helpers'
-import Swal from 'sweetalert2'
+import swal from 'sweetalert2'
 
 class ListProblem extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class ListProblem extends React.Component {
     axiosReportsUsers()
       .get(`reports`)
       .then(response => {
-        this.setState({ data: response.data.data });
+        this.setState({ data: response.data.data })
       })
       .catch(error => {
         console.log(error);
@@ -39,6 +39,10 @@ class ListProblem extends React.Component {
       .put(`reports/${id}`, {process:"Accepted"})
       .then(response => {
         if(response.status == 200) {
+          swal.fire({
+            icon: 'success',
+            title: 'Data Updated'
+          })
           this.showAllReport();
         }
       })
@@ -73,10 +77,18 @@ class ListProblem extends React.Component {
                       <TableCell align="right">{item.description}</TableCell>
                       <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
                       <TableCell align="right">
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained">Detail</Button>
+                        {item.process == "Sent" ? <div>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Reject</Button>
-                      </TableCell>
+                          </div> : item.process == "Rejected" ? <div>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                          </div> : <div>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Progress</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                          </div>
+                        }
+                        </TableCell>
                     </TableRow>
                   )
                 })}
