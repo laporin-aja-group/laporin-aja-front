@@ -91,19 +91,22 @@ body {
   height: 350px;
   width: 350px;
 }
+
 .contact {
   background-color: rgb(134, 190, 240);
   background-size: cover;
   width: 100%;
   height: 100%;
+  padding-bottom: 60px;
 }
 .landing-grid {
-  background-color: aliceblue;
+  background-color: #82bbec;
   text-align: center;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding-bottom: 50px;
 }
 .avatar {
   margin-top: 10px;
@@ -112,4 +115,8 @@ body {
 }
 .text {
   margin: 10px;
+}
+.btn.btn-outline-success {
+  color: rgb(16, 16, 131);
+  border-color: rgb(16, 16, 131);
 }

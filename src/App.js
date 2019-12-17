@@ -18,7 +18,8 @@ import {
   Contact,
   ListProblemAdmin,
   ListSuggestion,
-  DetailReportUser
+  DetailReportUser,
+  EditProblem
 } from "./components";
 
 class App extends Component {
@@ -67,6 +68,9 @@ class App extends Component {
               </Route>
               <Route path="/detail-report/:id">
                 <DetailReportUser />
+              </Route>
+              <Route path="/edit-problem/:id">
+                <EditProblem />
               </Route>
             </Route>
           </Switch>

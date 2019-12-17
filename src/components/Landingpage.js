@@ -21,8 +21,13 @@ class Landing extends Component {
       <div style={{ width: "100%", margin: "auto" }}>
         <Grid className="landing-grid">
           <Cell col={12}>
-            <h3 className="text">Welcome</h3>
-            <img src="./logo-hafiz1.png" alt="avatar" className="avatar" />
+            <h2>Welcome..</h2>
+            <img
+              src="./logo-hafiz1.png"
+              alt="avatar"
+              className="avatar"
+              style={{ width: "40%" }}
+            />
 
             <div className="banner-text">
               <h6>
@@ -33,8 +38,8 @@ class Landing extends Component {
                 remotely and will be immediately followed up if it has been
                 approved.
               </h6>
-              <Button raised colored>
-                <a href="./Team.js">Get Started</a>
+              <Button raised colored href="/login">
+                Get Started
               </Button>
 
               <hr />

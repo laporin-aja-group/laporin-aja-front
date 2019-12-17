@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -141,14 +141,14 @@ class ListProblem extends React.Component {
                       <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process, item.nameAdminHandling, item.emailAdminHandling)}>Accept</Button>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onReject(item._id, item.note, item.process, item.nameAdminHandling, item.emailAdminHandling)}>Reject</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onReject(item._id, item.note, item.process)}>Reject</Button>
                           </div> : item.process == "Rejected" ? <div>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
                           </div> : <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Progress</Button>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary">Detail</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
                           </div>
                         }
                         </TableCell>

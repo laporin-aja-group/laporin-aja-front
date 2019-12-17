@@ -166,7 +166,7 @@ class ReportUsers extends React.Component{
                                     <Button variant="contained" color="primary" onClick={() =>this.submitProblem(item)}>
                                         Submit
                                     </Button>
-                                    <Button variant="contained">Edit</Button>
+                                    <Button variant="contained" href={`/edit-problem/${item._id}`}>Edit</Button>
                                     <Button variant="contained" color="secondary" onClick={() =>this.deleteProblem(item._id, item.problem)}>
                                         Delete
                                     </Button>
