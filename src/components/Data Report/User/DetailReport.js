@@ -83,7 +83,7 @@ class DetailReport extends Component {
                                     <Typography component="p">
                                         {this.state.data.note}
                                     </Typography>
-                                </div> : this.state.data.process === "Accepted" ? <div>
+                                </div> : this.state.data.process === "Accepted" || this.state.data.process === "Progress" || this.state.data.process === "Done"   ? <div>
                                 <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
                                         Admin Handling
                                     </Typography>

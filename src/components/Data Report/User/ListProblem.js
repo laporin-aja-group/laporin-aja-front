@@ -89,7 +89,7 @@ class ListProblem extends React.Component {
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}}>Problem</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Location</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Description</TableCell>
-                <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Process</TableCell>
+                <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Status</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Action</TableCell>
               </TableRow>
             </TableHead>
