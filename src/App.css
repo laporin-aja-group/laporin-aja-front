@@ -106,7 +106,10 @@ body {
   height: 100%;
 }
 .avatar {
-  margin-top: 50px;
+  margin-top: 10px;
   width: 250px;
   height: 250px;
+}
+.text {
+  margin: 10px;
 }
