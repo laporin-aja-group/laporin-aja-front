@@ -62,6 +62,62 @@ class ListProblem extends React.Component {
     }) 
   }
 
+  onProgress = (id) => {
+    Swal.fire({
+      title: 'Make sure all reports are correct!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Accept now'
+    }).then((result) => {
+      if (result.value) {
+        axiosReportsUsers()
+        .put(`/reports/${id}`, {process:"Progress", note : "Thank you, your report is on Progress", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
+        .then(response => {
+          if(response.status == 200) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Data Updated'
+            })
+            this.showAllReport();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+    }) 
+  }
+
+  onDone = (id) => {
+    Swal.fire({
+      title: 'Make sure all reports are correct!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Accept now'
+    }).then((result) => {
+      if (result.value) {
+        axiosReportsUsers()
+        .put(`/reports/${id}`, {process:"Done", note : "Thank you, your report is Done", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
+        .then(response => {
+          if(response.status == 200) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Data Updated'
+            })
+            this.showAllReport();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+    }) 
+  }  
+
   onReject = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -125,7 +181,7 @@ class ListProblem extends React.Component {
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}}>Problem</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Location</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Description</TableCell>
-                <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Process</TableCell>
+                <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Status</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Action</TableCell>
               </TableRow>
             </TableHead>
@@ -146,8 +202,13 @@ class ListProblem extends React.Component {
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onReject(item._id, item.note, item.process)}>Reject</Button>
                           </div> : item.process == "Rejected" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
+                          </div> : item.process == "Accepted" ? <div>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onProgress(item._id, item.process)}>Progress</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>  
+                          </div> : item.process == "Done" ? <div>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
                           </div> : <div>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary">Progress</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onDone(item._id, item.process)}>Done</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
                           </div>
                         }
