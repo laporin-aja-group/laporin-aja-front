@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import { Link } from "react-router-dom";
+import { verify } from '../helpers'
 
 const useStyles = makeStyles({
   list: {
@@ -26,6 +27,7 @@ export default function SwipeableTemporaryDrawer() {
   const [state, setState] = React.useState({
     left: false
   });
+  let name = verify().fullName
 
   const toggleDrawer = (side, open) => event => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -44,7 +46,7 @@ export default function SwipeableTemporaryDrawer() {
     >
       <List>
         <ListItem>
-          <ListItemText>Welcome, </ListItemText>
+          <ListItemText>Welcome, {name}</ListItemText>
         </ListItem>
 
         {['List Problem'].map((text, index) => (
