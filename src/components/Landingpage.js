@@ -1,19 +1,6 @@
-// import React, { Component } from "react";
-
-// class Landing extends Component {
-//   render() {
-//     return (
-//       <div>
-//         <h1>Landing Page</h1>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Landing;
-
 import React, { Component } from "react";
 import { Grid, Cell, Button } from "react-mdl";
+import { Link } from 'react-router-dom'
 
 class Landing extends Component {
   render() {
@@ -32,9 +19,7 @@ class Landing extends Component {
                 remotely and will be immediately followed up if it has been
                 approved.
               </h5>
-              <Button raised colored>
-                <a href="./Login.js">Get Started</a>
-              </Button>
+              <Button component={Link} to="/login" raised colored>GET STARTED</Button>
 
               <hr />
 

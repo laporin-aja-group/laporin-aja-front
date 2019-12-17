@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 import Button from '@material-ui/core/Button';
@@ -48,11 +48,32 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function Register(props) {
+function EditProblem(props) {
+
+    const [data, setData] = useState([])
+    const idProblem = props.match.params.id
+    
+    useEffect(() => {
+      axiosReportsUsers()
+            .get(`/report-users/id/${idProblem}`)
+            .then(response => {
+              if (response.status === 200) {
+                setData({data : response.data.data}) 
+              }
+            })
+    },[])
+
+    const dataThis = Array.isArray(data.data)&&data.data[0]
+    const problemThis = dataThis.problem;
+    let problemMy = "Kanan";
+    console.log(problemMy);
+    
+    
 
     const classes = useStyles();
     let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
     let fileStack = process.env.REACT_APP_API_KEY_FILESTACK;
+    
 
         return (
             <Container component="main" maxWidth="xs">
@@ -65,6 +86,7 @@ function Register(props) {
                   location: "",
                   description: ""
                 }}
+                enableReinitialize={true}
                 validate=""
                 onSubmit={values => {
                   
@@ -119,17 +141,10 @@ function Register(props) {
                         name="problem"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.problem}
+                        defaultValue={problemMy}
                         autoComplete="problem"
                       />
-                       <p
-                      style={{
-                        color:"red",
-                        fontStyle:"italic"
-                      }}
-                      >
-                        <ErrorMessage name="problem" />
-                      </p>
+                       <p></p>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -171,16 +186,12 @@ function Register(props) {
                         autoComplete="description"
                         multiline
                       />
-                       <p
-                      style={{
-                        color:"red",
-                        fontStyle:"italic"
-                      }}
-                      >
-                        <ErrorMessage name="description" />
+                       <p>
                       </p>
                     </Grid>
-                    
+
+                    <img src={dataThis.image} alt="data_gambar" style={{width:"100%"}}/>
+
                     <ReactFilestack
                     apikey={fileStack}
                     actionOptions ={{
@@ -190,14 +201,13 @@ function Register(props) {
                       setFieldValue(
                         "image", res.filesUploaded[0].url
                       );
-                      
                     }}
                     componentDisplayMode={{
                         type: 'button',
                         customText: 'Choose File',
                         customClass: classes.filestack
                     }}
-                    />
+                    /><a>{problemMy}</a>
 
                   <Button
                     type="submit"
@@ -208,6 +218,7 @@ function Register(props) {
                   >
                     Submit
                   </Button>
+
                 </form>
                 )}
                 </Formik>
@@ -216,40 +227,5 @@ function Register(props) {
           );   
 }
 
-export default withRouter(Register)
-// import React, { Component } from 'react'
-// import { withRouter } from 'react-router-dom'
+export default withRouter(EditProblem)
 
-// class EditProblem extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       id: ""
-//     };
-//   }
-
-//   componentDidMount = () => {
-//     const {
-//       match: {
-//         params: {id}
-//       }
-//     } = this.props;
-
-//     this.setState({ id : id});
-
-//     console.log(this.state.id);
-    
-
-//   }
-
-//   render() {
-//     return (
-//       <div>
-        
-//       </div>
-//     )
-//   }
-// }
-
-// export default withRouter(EditProblem)

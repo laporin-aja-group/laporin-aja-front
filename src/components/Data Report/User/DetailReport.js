@@ -78,7 +78,7 @@ class DetailReport extends Component {
                                         {this.state.data.nameAdminHandling} ({this.state.data.emailAdminHandling})
                                     </Typography>
                                     <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
-                                        Message from admin
+                                        Why your report was rejected
                                     </Typography>
                                     <Typography component="p">
                                         {this.state.data.note}

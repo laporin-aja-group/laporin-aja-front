@@ -9,12 +9,14 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from '../../helpers'
 import Swal from 'sweetalert2'
+import TextField from '@material-ui/core/TextField';
 
 class ListProblem extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      filter: "",
       data : []
     };
   }
@@ -64,9 +66,22 @@ class ListProblem extends React.Component {
     })
   }
 
+  handleChange = event => {
+    this.setState({ filter: event.target.value });
+    axiosReportsUsers().get(`reports/search/${verify().email}/?q=${event.target.value}`).then(result=>{
+      this.setState({data : result.data.data})
+      
+    }).catch(error=>{
+      console.log(error);
+      
+    })
+  };
+
   render () {
+
     return (
       <div style={{width:"100%", marginTop:"20px"}}>
+        <TextField id="outlined-basic" label="Search" variant="outlined" onChange={this.handleChange}/>
         <Paper style={{width:"98%", overflowX:'auto', margin:"0 auto"}}>
           <Table style={{minWidth:"650"}} size="small" aria-label="a dense table">
             <TableHead>
