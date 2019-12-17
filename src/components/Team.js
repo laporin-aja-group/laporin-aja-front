@@ -247,7 +247,7 @@ const Team = props => {
                 </div>
                 <div className="card-body text-dark">
                   <h4 className="card-title">ADI NUGROHO</h4>
-                  <p>as Back End Developer</p>
+                  <p>as Full Stack Developer (Leader)</p>
 
                   <IconButton aria-label="add to favorites">
                     {" "}

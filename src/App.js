@@ -19,6 +19,7 @@ import {
   ListProblemAdmin,
   ListSuggestion,
   DetailReportUser,
+  DetailReportAdmin,
   EditProblem
 } from "./components";
 
@@ -59,6 +60,9 @@ class App extends Component {
               </Route>
               <Route path="/list-problem-admin">
                 <ListProblemAdmin />
+              </Route>
+              <Route path="/detail-admin/:id">
+                <DetailReportAdmin />
               </Route>
               <Route path="/list-suggestion">
                 <ListSuggestion />

@@ -69,7 +69,7 @@ class DetailReport extends Component {
                                 <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
                                     Image
                                 </Typography>
-                                <img style={{width:"50%", height:"50%"}} src={this.state.data.image}/>
+                                <img alt="report-problem" style={{width:"50%", height:"50%"}} src={this.state.data.image}/>
                                 {this.state.data.process === "Rejected" ? <div>
                                     <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
                                         Admin Handling

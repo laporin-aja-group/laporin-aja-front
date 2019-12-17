@@ -44,7 +44,7 @@ class Contact extends Component {
             <Form className="iniform">
               <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" />
+                <Form.Control type="textarea" placeholder="John Smith" />
               </Form.Group>
               <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Email Address</Form.Label>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid, Cell, Button } from "react-mdl";
-import { Link } from 'react-router-dom'
 
 class Landing extends Component {
   render() {
@@ -8,7 +7,7 @@ class Landing extends Component {
       <div style={{ width: "100%", margin: "auto" }}>
         <Grid className="landing-grid">
           <Cell col={12}>
-            <img src="./logo-hafiz1.png" alt="avatar" className="avatar" />
+            <img src="./logo-hafiz1.png" alt="avatar" className="avatar" style={{width:"40%"}} />
 
             <div className="banner-text">
               <h5>
@@ -19,7 +18,9 @@ class Landing extends Component {
                 remotely and will be immediately followed up if it has been
                 approved.
               </h5>
-              <Button component={Link} to="/login" raised colored>GET STARTED</Button>
+              <Button raised colored href="/login">
+                Get Started
+              </Button>
 
               <hr />
 
