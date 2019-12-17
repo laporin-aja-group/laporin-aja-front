@@ -34,7 +34,7 @@ class ListProblem extends React.Component {
     this.showAllReport();
   }
 
-  onAccept = (id, process) => {
+  onAccept = (id) => {
     Swal.fire({
       title: 'Make sure all reports are correct!',
       icon: 'warning',
@@ -45,7 +45,7 @@ class ListProblem extends React.Component {
     }).then((result) => {
       if (result.value) {
         axiosReportsUsers()
-        .put(`reports/${id}`, {process:"Accepted"})
+        .put(`/reports/${id}`, {process:"Accepted", note : "Thank you, your report will be processed immediately", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
         .then(response => {
           if(response.status == 200) {
             Swal.fire({
@@ -62,7 +62,7 @@ class ListProblem extends React.Component {
     }) 
   }
 
-  onReject = (id, note, process) => {
+  onReject = (id) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -89,7 +89,7 @@ class ListProblem extends React.Component {
             const data = answer.toString()
 
             axiosReportsUsers ()
-                .put(`/reports/${id}`, {note : data, process:"Rejected"})
+                .put(`/reports/${id}`, {note : data, process:"Rejected", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
                 .then(response => {
                   if (response.status === 200) {
                     Swal.fire({

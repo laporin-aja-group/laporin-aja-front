@@ -75,7 +75,9 @@ class ReportUsers extends React.Component{
                         image : item.image,
                         process : "Sent",
                         note : "Your report has been sent",
-                        user : item.user
+                        user : item.user,
+                        nameAdminHandling : "",
+                        emailAdminHandling : ""
                     }).then(response => {
                         if (response.status === 200) {
                             axiosReportsUsers()
@@ -164,7 +166,7 @@ class ReportUsers extends React.Component{
                                     <Button variant="contained" color="primary" onClick={() =>this.submitProblem(item)}>
                                         Submit
                                     </Button>
-                                    <Button variant="contained">Edit</Button>
+                                    <Button variant="contained" href={`/edit-problem/${item._id}`}>Edit</Button>
                                     <Button variant="contained" color="secondary" onClick={() =>this.deleteProblem(item._id, item.problem)}>
                                         Delete
                                     </Button>

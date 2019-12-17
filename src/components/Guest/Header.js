@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import banner from "./banner.png"
+import banner from "./banner.png";
 export default class Header extends Component {
   render() {
     return (
@@ -12,38 +12,72 @@ export default class Header extends Component {
           style={{
             color: "white",
             backgroundColor: "#c4c4c4",
-            height:"100%"
+            height: "100%"
           }}
         >
           <Toolbar>
-            <Typography  variant="h6" style={{}}>
-            <Link to="/"
-            >
-              <img style={{width:'20%', paddingTop:'10px', paddingBottom:'10px'}} src={banner} alt="banner"/>
-            </Link>
+            <Typography variant="h6" style={{}}>
+              <Link to="/">
+                <img
+                  style={{
+                    width: "20%",
+                    paddingTop: "10px",
+                    paddingBottom: "10px"
+                  }}
+                  src={banner}
+                  alt="banner"
+                />
+              </Link>
             </Typography>
             <Typography
               variant="h6"
               style={{
                 flexGrow: 1
               }}
+            ></Typography>
+            <Button
+              color="inherit"
+              id="Login-Button"
+              component={Link}
+              to="/contact"
+              style={{
+                width: "10%",
+                height: "60px",
+                color: "blue",
+                fontWeight: "bold",
+                fontSize: "16px"
+              }}
             >
-            </Typography>
-            <Button 
-            color="inherit" 
-            id="Login-Button"
-            component={Link}
-            to="/team"
-            style={{ width:"6%", height:"60px" , color:"blue" , fontWeight:"bold", fontSize:"16px", marginRight:"15px" }}
+              Contact
+            </Button>
+            <Button
+              color="inherit"
+              id="Login-Button"
+              component={Link}
+              to="/team"
+              style={{
+                width: "6%",
+                height: "60px",
+                color: "blue",
+                fontWeight: "bold",
+                fontSize: "16px",
+                marginRight: "15px"
+              }}
             >
               Team
             </Button>
-            <Button 
-            color="inherit" 
-            id="Login-Button"
-            component={Link}
-            to="/login"
-            style={{ width:"6%", height:"60px" , color:"blue" , fontWeight:"bold", fontSize:"16px" }}
+            <Button
+              color="inherit"
+              id="Login-Button"
+              component={Link}
+              to="/login"
+              style={{
+                width: "6%",
+                height: "60px",
+                color: "blue",
+                fontWeight: "bold",
+                fontSize: "16px"
+              }}
             >
               Login
             </Button>
