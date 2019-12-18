@@ -7,6 +7,11 @@ body {
   background-repeat: no-repeat;
 }
 
+.banner-text {
+  margin-right: 27%;
+  margin-left: 27%;
+}
+
 #Menu-User {
   border-radius: 10%;
   border: solid;
