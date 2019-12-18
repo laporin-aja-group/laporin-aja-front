@@ -195,7 +195,7 @@ function Register(props) {
                     }}
                     componentDisplayMode={{
                         type: 'button',
-                        customText: 'Choose File',
+                        customText: 'Upload Photo',
                         customClass: classes.filestack
                     }}
                   /> <a>{urlImage}</a>

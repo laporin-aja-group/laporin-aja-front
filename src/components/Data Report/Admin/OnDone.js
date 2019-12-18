@@ -6,7 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import { axiosReportsUsers } from '../../helpers';
 import Swal from "sweetalert2"
 import ReactFilestack from 'filestack-react';
-import { Formik, ErrorMessage } from "formik";
+import { Formik } from "formik";
+import { Badge } from 'react-bootstrap'
 
 class OnDone extends Component {
     constructor(props) {
@@ -102,7 +103,12 @@ class OnDone extends Component {
                                 Status
                             </Typography>
                             <Typography component="p">
-                                {this.state.data.process}
+                            {this.state.data.process == "Rejected" ? 
+                                <Badge variant="danger" style={{fontSize:"13px"}}>{this.state.data.process}
+                                </Badge> : this.state.data.process == "Sent" ? <Badge variant="secondary" style={{fontSize:"13px"}}>{this.state.data.process}
+                                </Badge> : this.state.data.process == "Accepted" ? <Badge variant="success" style={{fontSize:"13px"}}>{this.state.data.process}
+                                </Badge> : this.state.data.process == "Done" ? <Badge variant="info" style={{fontSize:"13px"}}>{this.state.data.process}
+                                </Badge> : <Badge variant="primary" style={{fontSize:"13px"}}>{this.state.data.process}</Badge>}
                             </Typography>
                             <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
                                 Image

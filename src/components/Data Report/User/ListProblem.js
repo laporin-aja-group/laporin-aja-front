@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from '../../helpers'
 import Swal from 'sweetalert2'
 import TextField from '@material-ui/core/TextField';
+import { Badge } from 'react-bootstrap'
 
 class ListProblem extends React.Component {
   constructor(props) {
@@ -104,7 +105,14 @@ class ListProblem extends React.Component {
                       </TableCell>
                       <TableCell align="right">{item.location}</TableCell>
                       <TableCell align="right">{item.description}</TableCell>
-                      <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
+                      <TableCell align="right">
+                      {item.process == "Rejected" ? 
+                          <Badge variant="danger" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Sent" ? <Badge variant="secondary" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Accepted" ? <Badge variant="success" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Done" ? <Badge variant="info" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : <Badge variant="primary" style={{fontSize:"13px"}}>{item.process}</Badge>}
+                      </TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-report/${item._id}`}>Detail</Button>
