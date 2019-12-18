@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from '../../helpers'
 import Swal from 'sweetalert2'
+import { Badge } from 'react-bootstrap'
 
 class ListProblem extends React.Component {
   constructor(props) {
@@ -195,13 +196,12 @@ class ListProblem extends React.Component {
                       <TableCell align="right">{item.location}</TableCell>
                       <TableCell align="right">{item.description}</TableCell>
                       <TableCell align="right">
-                        <Button 
-                        variant="contained" 
-                        color="primary" 
-                        disabled
-                        >
-                          {item.process}
-                        </Button>
+                          {item.process == "Rejected" ? 
+                          <Badge variant="danger" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Sent" ? <Badge variant="secondary" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Accepted" ? <Badge variant="success" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Done" ? <Badge variant="info" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : <Badge variant="primary" style={{fontSize:"13px"}}>{item.process}</Badge>}
                       </TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
