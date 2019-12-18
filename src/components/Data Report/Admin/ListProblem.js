@@ -114,7 +114,7 @@ class ListProblem extends React.Component {
           confirmButtonText: 'Upload photo'
         }).then((result) => {
           if (result.value) {
-
+            this.props.history.push(`/ondone/${id}`)
           }
         })
       }
