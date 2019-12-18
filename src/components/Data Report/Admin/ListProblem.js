@@ -11,6 +11,7 @@ import { verify, axiosReportsUsers } from '../../helpers'
 import ReactFilestack from 'filestack-react';
 import Swal from 'sweetalert2'
 import TextField from '@material-ui/core/TextField';
+import { Badge } from 'react-bootstrap'
 
 let img = ""
 
@@ -228,13 +229,12 @@ class ListProblem extends React.Component {
                       <TableCell align="right">{item.description}</TableCell>
                       <TableCell align="right">{item.user.fullName}</TableCell>
                       <TableCell align="right">
-                        <Button 
-                        variant="contained" 
-                        color="primary" 
-                        disabled
-                        >
-                          {item.process}
-                        </Button>
+                          {item.process == "Rejected" ? 
+                          <Badge variant="danger" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Sent" ? <Badge variant="secondary" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Accepted" ? <Badge variant="success" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : item.process == "Done" ? <Badge variant="info" style={{fontSize:"13px"}}>{item.process}
+                          </Badge> : <Badge variant="primary" style={{fontSize:"13px"}}>{item.process}</Badge>}
                       </TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
