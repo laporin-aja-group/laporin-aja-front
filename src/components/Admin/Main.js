@@ -71,7 +71,7 @@ export default function SwipeableTemporaryDrawer() {
             <ListItemIcon><ViewListIcon /></ListItemIcon>
             <ListItemText primary={text} ></ListItemText>
           </ListItem>
-        ))} 
+        ))}
           
       </List>
     </div>
