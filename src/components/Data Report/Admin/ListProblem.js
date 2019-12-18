@@ -8,14 +8,19 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from '../../helpers'
+import ReactFilestack from 'filestack-react';
 import Swal from 'sweetalert2'
+import TextField from '@material-ui/core/TextField';
+
+let img = ""
 
 class ListProblem extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data : []
+      data : [],
+      filterProblem: "",
     };
   }
 
@@ -33,7 +38,7 @@ class ListProblem extends React.Component {
   componentDidMount = () => {
     this.showAllReport();
   }
-
+  
   onAccept = (id) => {
     Swal.fire({
       title: 'Make sure all reports are correct!',
@@ -64,16 +69,16 @@ class ListProblem extends React.Component {
 
   onProgress = (id) => {
     Swal.fire({
-      title: 'Make sure all reports are correct!',
+      title: 'Make sure all parties are ready to resolve this problem immediately!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Accept now'
+      confirmButtonText: 'Yes everything is ready'
     }).then((result) => {
       if (result.value) {
         axiosReportsUsers()
-        .put(`/reports/${id}`, {process:"Progress", note : "Thank you, your report is on Progress", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
+        .put(`/reports/${id}`, {process:"Being Repaired", note : "Thank you, your report is on Progress", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
         .then(response => {
           if(response.status == 200) {
             Swal.fire({
@@ -92,28 +97,26 @@ class ListProblem extends React.Component {
 
   onDone = (id) => {
     Swal.fire({
-      title: 'Make sure all reports are correct!',
+      title: 'Make sure all problems have been fixed!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Accept now'
+      confirmButtonText: 'Yes, all problems are resolved'
     }).then((result) => {
       if (result.value) {
-        axiosReportsUsers()
-        .put(`/reports/${id}`, {process:"Done", note : "Thank you, your report is Done", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
-        .then(response => {
-          if(response.status == 200) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Data Updated'
-            })
-            this.showAllReport();
+        Swal.fire({
+          title: 'Please enter a photo for proof that this problem has been resolved',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Upload photo'
+        }).then((result) => {
+          if (result.value) {
+
           }
         })
-        .catch(error => {
-          console.log(error);
-        });
       }
     }) 
   }  
@@ -171,9 +174,37 @@ class ListProblem extends React.Component {
     })
   }
 
+  handleChangeSearchProblem = event => {
+    axiosReportsUsers().get(`/reports/search-problem/?q=${event.target.value}`).then(result=>{
+      console.log(result);
+      
+      this.setState({data : result.data.data})
+      
+    }).catch(error=>{
+      console.log(error);
+      
+    })
+  };
+
+  handleChangeSearchLocation = event => {
+    axiosReportsUsers().get(`/reports/search-location/?q=${event.target.value}`).then(result=>{
+      console.log(result);
+      
+      this.setState({data : result.data.data})
+      
+    }).catch(error=>{
+      console.log(error);
+      
+    })
+  };
+
   render () {
     return (
       <div style={{width:"100%", marginTop:"20px"}}>
+        <div style={{marginTop:"20px", margin:"0 auto",marginBottom:"20px", width:"98%", overflowX:'auto'}}>
+          <TextField style={{backgroundColor:"white", marginLeft:"10px", marginTop:"10px"}} id="outlined-basic" label="Search by problem" variant="outlined" onChange={this.handleChangeSearchProblem}/>
+          <TextField style={{backgroundColor:"white", marginLeft:"10px", marginTop:"10px"}} id="outlined-basic" label="Search by location" variant="outlined" onChange={this.handleChangeSearchLocation}/>
+        </div>
         <Paper style={{width:"98%", overflowX:'auto', margin:"0 auto"}}>
           <Table style={{minWidth:"650"}} size="small" aria-label="a dense table">
             <TableHead>
@@ -181,6 +212,7 @@ class ListProblem extends React.Component {
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}}>Problem</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Location</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Description</TableCell>
+                <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Report Sender</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Status</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Action</TableCell>
               </TableRow>
@@ -194,7 +226,16 @@ class ListProblem extends React.Component {
                       </TableCell>
                       <TableCell align="right">{item.location}</TableCell>
                       <TableCell align="right">{item.description}</TableCell>
-                      <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
+                      <TableCell align="right">{item.user.fullName}</TableCell>
+                      <TableCell align="right">
+                        <Button 
+                        variant="contained" 
+                        color="primary" 
+                        disabled
+                        >
+                          {item.process}
+                        </Button>
+                      </TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>
@@ -203,7 +244,7 @@ class ListProblem extends React.Component {
                           </div> : item.process == "Rejected" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
                           </div> : item.process == "Accepted" ? <div>
-                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onProgress(item._id, item.process)}>Progress</Button>
+                          <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onProgress(item._id, item.process)}>Start Repaired</Button>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>  
                           </div> : item.process == "Done" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="primary" component={Link} to={`/detail-admin/${item._id}`}>Detail</Button>
@@ -225,3 +266,18 @@ class ListProblem extends React.Component {
 }
 
 export default withRouter(ListProblem)
+
+// axiosReportsUsers()
+//                 .put(`/reports/${id}`, {process:"Done", note : "Thank you, your report is Done", nameAdminHandling:verify().fullName, emailAdminHandling:verify().email})
+//                 .then(response => {
+//                   if(response.status == 200) {
+//                     Swal.fire({
+//                       icon: 'success',
+//                       title: 'Data Updated'
+//                     })
+//                     this.showAllReport();
+//                   }
+//                 })
+//                 .catch(error => {
+//                   console.log(error);
+//                 });

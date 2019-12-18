@@ -15,3 +15,4 @@ export { default as DetailReportAdmin } from "./Data Report/Admin/DetailReport"
 export { default as ListProblemAdmin } from "./Data Report/Admin/ListProblem";
 export { default as ListSuggestion } from "./Data Report/Admin/ListSuggestion";
 export { default as EditProblem } from "./Data Report/User/EditProblem";
+export { default as RegisterAdmin } from "./Data Report/Admin/RegisterAdmin"

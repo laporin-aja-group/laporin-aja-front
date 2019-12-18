@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,10 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import RegisterLogo from "./Guest/banner.png"
+import NumberFormat from "react-number-format"
+import axios from "axios"
+import { registerValidation } from "../../validation"
 import Swal from "sweetalert2"
-import ReactFilestack from 'filestack-react';
-import { verify, axiosReportsUsers } from "./helpers"
 
 const useStyles = makeStyles(theme => ({
     "@global": {
@@ -37,63 +37,47 @@ const useStyles = makeStyles(theme => ({
         marginLeft: "25%",
         display: "flex",
         alignItems: "center"
-    },
-    filestack: {
-        margin: theme.spacing(3, 0, 2),
-        width: "30%",
-        display: "flex",
-        alignItems: "center"
     }
-
 }));
 
 
-function Register(props) {
+function RegisterAdmin(props) {
 
     const classes = useStyles();
     let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
-    let fileStack = process.env.REACT_APP_API_KEY_FILESTACK;
-    let urlImage = "";
 
         return (
             <Container component="main" maxWidth="xs">
               <CssBaseline />
               <div className={classes.paper}>
-                    <img src={RegisterLogo} alt="register" id="Login-Image"/>
                 <Formik
                 initialValues={{
-                  problem: "",
-                  location: "",
-                  description: ""
+                  fullName: "",
+                  phoneNumber: "",
+                  email: "",
+                  password: ""
+
                 }}
-                validate=""
+                validate={registerValidation}
                 onSubmit={values => {
-                  
-                  if (values.problem === "" || values.location === "" || values.description === "" || urlImage === "") {
-                    Swal.fire({
-                      icon: 'error',
-                      title: "Make sure your report is filled in correctly!",
-                    })
-                  } else {
-                  axiosReportsUsers()
-                    .post(`${urlLoginLive}report-users`, {...values, user : verify()._id})
-                    .then(response => {
-                      if (response.status === 200) {
-                        Swal.fire({
-                          icon: 'success',
-                          title: 'Add Report Successfully',
-                          text: 'Now you can check your report',
-                        }).then(response => {
-                          props.history.push("/report-users")
-                        })
-                      } else {
-                        Swal.fire({
-                          icon: 'error',
-                          title: 'There`s something error when you add report, please add report again'
-                        })
-                      }
-                    })
-                  }
+                  axios
+                      .post(`${urlLoginLive}users`, {...values, role:"admin"})
+                      .then(response => {
+                        if (response.status === 201) {
+                          Swal.fire({
+                            icon: 'success',
+                            title: 'Create a new admin account successfully',
+                            text: 'Now you can login as admin with this account',
+                          }).then(response => {
+                            window.location.reload();
+                          })
+                        } else {
+                          Swal.fire({
+                            icon: 'error',
+                            title: 'There`s something error when you create admin, please repeat again'
+                          })
+                        }
+                      })
                 }}
                 >
                   {({
@@ -111,17 +95,21 @@ function Register(props) {
                 style={{ margin:"0px", padding:"10px 30px 30px"}}
                 >
                     <Grid item xs={12}>
+                      <h4 style={{textAlign:"center" , fontWeight:"bold"}}>Admin form</h4>
+                    </Grid>
+
+                  <Grid item xs={12}>
                       <TextField
                         variant="outlined"
                         required
                         fullWidth
-                        id="problem"
-                        label="Problem"
-                        name="problem"
+                        id="fullName"
+                        label="Full Name"
+                        name="fullName"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.problem}
-                        autoComplete="problem"
+                        defaultValue={values.fullName}
+                        autoComplete="fullName"
                       />
                        <p
                       style={{
@@ -129,7 +117,31 @@ function Register(props) {
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="problem" />
+                        <ErrorMessage name="fullName" />
+                      </p>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <NumberFormat
+                        variant="outlined" 
+                        required 
+                        fullWidth 
+                        id="phoneNumber"
+                        label="Phone Number"
+                        name="phoneNumber"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        defaultValue={values.fullName}
+                        autoComplete="phoneNumber"
+                        customInput={TextField} 
+                        format="+62 (###) #### ####"/>
+                       <p
+                      style={{
+                        color:"red",
+                        fontStyle:"italic"
+                      }}
+                      >
+                        <ErrorMessage name="phoneNumber" />
                       </p>
                     </Grid>
 
@@ -138,14 +150,13 @@ function Register(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        id="location"
-                        label="Detail Location"
-                        name="location"
+                        id="email"
+                        label="Email Address"
+                        name="email"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.location}
-                        autoComplete="location"
-                        multiline
+                        defaultValue={values.email}
+                        autoComplete="email"
                       />
                        <p
                       style={{
@@ -153,53 +164,33 @@ function Register(props) {
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="location" />
+                        <ErrorMessage name="email" />
                       </p>
                     </Grid>
 
                     <Grid item xs={12}>
                       <TextField
                         variant="outlined"
-                        rows="4"
                         required
                         fullWidth
-                        id="description"
-                        label="Description (Optional)"
-                        name="description"
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.description}
-                        autoComplete="description"
-                        multiline
+                        defaultValue={values.password}
+                        autoComplete="current-password"
                       />
-                       <p
+                      <p
                       style={{
                         color:"red",
                         fontStyle:"italic"
                       }}
                       >
-                        <ErrorMessage name="description" />
+                        <ErrorMessage name="password" />
                       </p>
                     </Grid>
-                    
-                    <ReactFilestack
-                    apikey={fileStack}
-                    actionOptions ={{
-                      accept: ["image/*"]
-                    }}
-                    onSuccess={(res) => {
-                      setFieldValue(
-                        "image", res.filesUploaded[0].url
-                      );
-                      urlImage = res.filesUploaded[0].filename;
-                    }}
-                    componentDisplayMode={{
-                        type: 'button',
-                        customText: 'Choose File',
-                        customClass: classes.filestack
-                    }}
-                  /> <a>{urlImage}</a>
-
                   <Button
                     type="submit"
                     fullWidth
@@ -207,7 +198,7 @@ function Register(props) {
                     color="primary"
                     className={classes.submit}
                   >
-                    Submit
+                    Create admin
                   </Button>
                 </form>
                 )}
@@ -217,4 +208,4 @@ function Register(props) {
           );   
 }
 
-export default withRouter(Register)
+export default withRouter(RegisterAdmin)
