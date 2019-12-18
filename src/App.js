@@ -21,8 +21,9 @@ import {
   ListSuggestion,
   DetailReportUser,
   OnDone,
+  AfterDone,
   DetailReportAdmin,
-  EditProblem  
+  EditProblem 
 } from "./components";
 
 class App extends Component {
@@ -71,6 +72,9 @@ class App extends Component {
               </Route>
               <Route path="/ondone/:id">
                 <OnDone />
+              </Route>
+              <Route path="/afterdone/:id">
+                <AfterDone />
               </Route>
               <Route path="/list-suggestion">
                 <ListSuggestion />

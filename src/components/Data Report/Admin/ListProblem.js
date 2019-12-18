@@ -8,12 +8,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { verify, axiosReportsUsers } from '../../helpers'
-import ReactFilestack from 'filestack-react';
 import Swal from 'sweetalert2'
 import TextField from '@material-ui/core/TextField';
 import { Badge } from 'react-bootstrap'
-
-let img = ""
 
 class ListProblem extends React.Component {
   constructor(props) {

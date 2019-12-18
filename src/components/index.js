@@ -10,6 +10,7 @@ export { default as ReportsUsers } from "./ReportUsers";
 export { default as ListProblem } from "./ListProblem";
 export { default as Header } from "./Header";
 export { default as OnDone } from "./Data Report/Admin/OnDone"
+export { default as AfterDone } from "./Data Report/Admin/AfterDone"
 export { default as AdminHeader } from "./Admin/Header";
 export { default as DetailReportUser } from "./Data Report/User/DetailReport";
 export { default as DetailReportAdmin } from "./Data Report/Admin/DetailReport"

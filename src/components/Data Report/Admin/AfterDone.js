@@ -4,18 +4,14 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { axiosReportsUsers } from '../../helpers';
-import Swal from "sweetalert2"
-import ReactFilestack from 'filestack-react';
-import { Formik, ErrorMessage } from "formik";
 
-class OnDone extends Component {
+class DetailReport extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             data : [],
-            userDetail : [],
-            id : ""
+            userDetail : []
         };
     }
 
@@ -31,7 +27,6 @@ class OnDone extends Component {
         .then(response => {
             this.setState({ data: response.data.data });
             this.setState({ userDetail : response.data.data.user})
-            this.setState({ id : id})
         })
         .catch(error => {
             console.log(error);
@@ -43,8 +38,7 @@ class OnDone extends Component {
     }
 
     render() {
-        let urlImage = "";
-        let fileStack = process.env.REACT_APP_API_KEY_FILESTACK;
+        
         return (
             <div>
                  <Paper style={{marginTop:"20px", marginLeft:"20%", marginRight:"20%"}}>
@@ -105,70 +99,14 @@ class OnDone extends Component {
                                 {this.state.data.process}
                             </Typography>
                             <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
-                                Image
+                                Image Problem
                             </Typography>
                             <img alt="report-problem" style={{width:"100%"}} src={this.state.data.image}/>
-                            <Formik
-                                initialValues={{
-                                
-                                }}
-                                onSubmit={values => {
-                                    if (urlImage === "") {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: "You must upload a photo as proof that the problem is resolved!",
-                                          })
-                                    } else {
-                                        axiosReportsUsers()
-                                            .put(`reports/${this.state.id}`, {problemSolving : values.image, process:"Done", note : "Thank you, your report is Done"})
-                                            .then((response) => {
-                                                Swal.fire({
-                                                    icon: 'success',
-                                                    title: 'Upload photo succesfully',
-                                                    text: 'Now you can check user report',
-                                                  }).then(response => {
-                                                    this.props.history.push(`/afterdone/${this.state.id}`)
-                                                  })
-                                            })
-                                    }  
-                                }}>
-                                {({
-                                    values,
-                                    handleChange,
-                                    handleBlur,
-                                    handleSubmit,
-                                    setFieldValue,
-                                    isSubmitting
-                                }) => (
-                                    <form
-                                    onSubmit={handleSubmit}
-                                    noValidate
-                                    style={{marginTop:"20px"}}>
-                                        <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
-                                            Photo for proof
-                                        </Typography>
-                                        <div style={{marginTop:"20px"}}>
-                                        <ReactFilestack
-                                            apikey={fileStack}
-                                            actionOptions ={{
-                                            accept: ["image/*"]
-                                            }}
-                                            onSuccess={(res) => {
-                                            setFieldValue(
-                                                "image", res.filesUploaded[0].url
-                                            );
-                                            urlImage = res.filesUploaded[0].filename;
-                                            }}
-                                            componentDisplayMode={{
-                                                type: 'button',
-                                                customText: 'Upload Photo'
-                                            }}
-                                        />
-                                        </div><a>{urlImage}</a>
-                                        <div style={{textAlign:"center", marginTop:"20px"}}><Button variant="contained" color="primary" type="submit">Submit</Button></div>
-                                    </form>
-                                )}
-                            </Formik>
+                            <Typography style={{marginTop:"20px"}} variant="h5" component="h3">
+                                After fixing the problem
+                            </Typography>
+                            <img alt="after-fixing-problem" style={{width:"100%"}} src={this.state.data.problemSolving}/>
+                            <div style={{textAlign:"center", marginTop:"20px"}}><Button variant="contained" color="primary" component={Link} to="/list-problem-admin">OK</Button></div>
                         </div>
                 </Paper>
             </div>
@@ -176,4 +114,4 @@ class OnDone extends Component {
     }
 }
 
-export default withRouter(OnDone)
+export default withRouter(DetailReport)
