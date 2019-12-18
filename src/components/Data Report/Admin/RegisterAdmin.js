@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-// import RegisterLogo from "./Guest/banner.png"
 import NumberFormat from "react-number-format"
 import axios from "axios"
 import { registerValidation } from "../../validation"
@@ -51,7 +50,6 @@ function RegisterAdmin(props) {
             <Container component="main" maxWidth="xs">
               <CssBaseline />
               <div className={classes.paper}>
-                    {/* <img src={RegisterLogo} alt="register" id="Login-Image"/> */}
                 <Formik
                 initialValues={{
                   fullName: "",
@@ -68,15 +66,15 @@ function RegisterAdmin(props) {
                         if (response.status === 201) {
                           Swal.fire({
                             icon: 'success',
-                            title: 'Register Successfully',
-                            text: 'Now you can login',
+                            title: 'Create a new admin account successfully',
+                            text: 'Now you can login as admin with this account',
                           }).then(response => {
-                            props.history.push("/login")
+                            window.location.reload();
                           })
                         } else {
                           Swal.fire({
                             icon: 'error',
-                            title: 'There`s something error when you register, please register again'
+                            title: 'There`s something error when you create admin, please repeat again'
                           })
                         }
                       })
@@ -200,7 +198,7 @@ function RegisterAdmin(props) {
                     color="primary"
                     className={classes.submit}
                   >
-                    Sign Up
+                    Create admin
                   </Button>
                 </form>
                 )}

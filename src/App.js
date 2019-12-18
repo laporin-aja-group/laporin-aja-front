@@ -21,7 +21,7 @@ import {
   ListSuggestion,
   DetailReportUser,
   DetailReportAdmin,
-  EditProblem
+  EditProblem  
 } from "./components";
 
 class App extends Component {

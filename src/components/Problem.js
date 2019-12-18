@@ -185,7 +185,7 @@ function Register(props) {
                     <ReactFilestack
                     apikey={fileStack}
                     actionOptions ={{
-                      accept: ["image/*", "video/*"]
+                      accept: ["image/*"]
                     }}
                     onSuccess={(res) => {
                       setFieldValue(
