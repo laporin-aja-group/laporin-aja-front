@@ -81,7 +81,9 @@ class ListProblem extends React.Component {
 
     return (
       <div style={{width:"100%", marginTop:"20px"}}>
-        <TextField id="outlined-basic" label="Search" variant="outlined" onChange={this.handleChange}/>
+        <div style={{padding:"20px", width:"98%", overflowX:'auto', margin:"0 auto"}}>
+          <TextField style={{backgroundColor:"white"}} id="outlined-basic" label="Search Problem" variant="outlined" onChange={this.handleChange}/>
+        </div>
         <Paper style={{width:"98%", overflowX:'auto', margin:"0 auto"}}>
           <Table style={{minWidth:"650"}} size="small" aria-label="a dense table">
             <TableHead>

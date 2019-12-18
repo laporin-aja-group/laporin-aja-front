@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -166,7 +166,7 @@ class ReportUsers extends React.Component{
                                     <Button variant="contained" color="primary" onClick={() =>this.submitProblem(item)}>
                                         Submit
                                     </Button>
-                                    <Button variant="contained" href={`/edit-problem/${item._id}`}>Edit</Button>
+                                    <Button variant="contained" component={Link} to={`/edit-problem/${item._id}`}>Edit</Button>
                                     <Button variant="contained" color="secondary" onClick={() =>this.deleteProblem(item._id, item.problem)}>
                                         Delete
                                     </Button>
