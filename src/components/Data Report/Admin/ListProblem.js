@@ -227,7 +227,15 @@ class ListProblem extends React.Component {
                       <TableCell align="right">{item.location}</TableCell>
                       <TableCell align="right">{item.description}</TableCell>
                       <TableCell align="right">{item.user.fullName}</TableCell>
-                      <TableCell align="right"><Button variant="contained" color="primary" disabled>{item.process}</Button></TableCell>
+                      <TableCell align="right">
+                        <Button 
+                        variant="contained" 
+                        color="primary" 
+                        disabled
+                        >
+                          {item.process}
+                        </Button>
+                      </TableCell>
                       <TableCell align="right">
                         {item.process == "Sent" ? <div>
                           <Button style={{marginTop:"10px", marginRight:"10px"}} variant="contained" color="secondary" onClick={() =>this.onAccept(item._id, item.process)}>Accept</Button>

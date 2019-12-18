@@ -11,6 +11,7 @@ import {
   Login,
   Team,
   Register,
+  RegisterAdmin,
   LandingPage,
   Problem,
   ReportsUsers,
@@ -42,6 +43,9 @@ class App extends Component {
               </Route>
               <Route path="/register">
                 <Register />
+              </Route>
+              <Route path="/register-admin">
+                <RegisterAdmin />
               </Route>
               <Route path="/team">
                 <Team />

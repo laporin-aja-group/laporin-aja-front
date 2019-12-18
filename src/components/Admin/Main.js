@@ -6,6 +6,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import SpeakerNotesIcon from '@material-ui/icons/SpeakerNotes';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import { Link } from "react-router-dom";
 import { verify } from '../helpers'
@@ -68,7 +70,19 @@ export default function SwipeableTemporaryDrawer() {
           component={Link}
           to="/list-suggestion"
           >
-            <ListItemIcon><ViewListIcon /></ListItemIcon>
+            <ListItemIcon><SpeakerNotesIcon /></ListItemIcon>
+            <ListItemText primary={text} ></ListItemText>
+          </ListItem>
+        ))} 
+
+        {['Add new Admin'].map((text, index) => (
+          <ListItem 
+          button 
+          key={text}
+          component={Link}
+          to="/register-admin"
+          >
+            <ListItemIcon><PersonAddIcon /></ListItemIcon>
             <ListItemText primary={text} ></ListItemText>
           </ListItem>
         ))}

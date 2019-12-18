@@ -3,6 +3,8 @@ import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Main from './Main'
 import swal from 'sweetalert2'
+import { verify } from '.././helpers'
+import { Badge } from 'react-bootstrap'
 
 const logOut = () => {
   localStorage.removeItem("token");
@@ -27,6 +29,12 @@ export default class Header extends Component {
           <Toolbar>
             <Typography  variant="h6" style={{}}>
                 <Main />
+            </Typography>
+            <Typography  
+            variant="h6" 
+            style={{ marginLeft:"10px", fontSize:"24px"}}
+            >
+              <Badge variant="info">You are loged in as <Badge variant="primary">{verify().role}</Badge></Badge>
             </Typography>
             <Typography
               variant="h6"
