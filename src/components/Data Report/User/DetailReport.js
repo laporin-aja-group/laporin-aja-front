@@ -37,7 +37,6 @@ class DetailReport extends Component {
     }
 
     render() {
-        console.log(this.state.data);
         
         return (
             <div>
