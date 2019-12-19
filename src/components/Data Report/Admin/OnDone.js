@@ -155,7 +155,7 @@ class OnDone extends Component {
                                         </Typography>
                                         <div style={{marginTop:"20px"}}>
                                         <ReactFilestack
-                                            apikey={fileStack}
+                                            apikey={`AhoCB9ZadTsGGPJ7vtOp2z`}
                                             actionOptions ={{
                                             accept: ["image/*"]
                                             }}

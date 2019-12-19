@@ -187,7 +187,7 @@ class EditProfileAdmin extends Component {
                                 <img alt="profile-image" style={{borderRadius:"50%", width:"80%", backgroundColor:"white"}} src={imageUrl}></img>
                                     <div style={{marginTop:"10px"}}>
                                         <ReactFilestack
-                                            apikey={fileStack}
+                                            apikey={`AhoCB9ZadTsGGPJ7vtOp2z`}
                                             actionOptions ={{
                                             accept: ["image/*"]
                                             }}

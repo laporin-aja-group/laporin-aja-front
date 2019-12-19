@@ -183,7 +183,7 @@ function Register(props) {
                     </Grid>
                     
                     <ReactFilestack
-                    apikey={fileStack}
+                    apikey={`AhoCB9ZadTsGGPJ7vtOp2z`}
                     actionOptions ={{
                       accept: ["image/*"]
                     }}

@@ -182,7 +182,7 @@ class EditProblem extends Component {
                                     </div> : <div></div>}
                             <div style={{padding:"20px"}}>
                             <ReactFilestack
-                                apikey={fileStack}
+                                apikey={`AhoCB9ZadTsGGPJ7vtOp2z`}
                                 actionOptions ={{
                                 accept: ["image/*"]
                                 }}
