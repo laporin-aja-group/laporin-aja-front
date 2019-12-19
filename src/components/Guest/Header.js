@@ -45,7 +45,8 @@ export default class Header extends Component {
                 height: "60px",
                 color: "blue",
                 fontWeight: "bold",
-                fontSize: "16px"
+                fontSize: "16px",
+                marginRight: "15px"
               }}
             >
               Contact

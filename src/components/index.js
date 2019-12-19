@@ -9,8 +9,12 @@ export { default as Problem } from "./Problem";
 export { default as ReportsUsers } from "./ReportUsers";
 export { default as ListProblem } from "./ListProblem";
 export { default as Header } from "./Header";
+export { default as OnDone } from "./Data Report/Admin/OnDone"
+export { default as AfterDone } from "./Data Report/Admin/AfterDone"
 export { default as AdminHeader } from "./Admin/Header";
 export { default as DetailReportUser } from "./Data Report/User/DetailReport";
+export { default as DetailReportAdmin } from "./Data Report/Admin/DetailReport"
 export { default as ListProblemAdmin } from "./Data Report/Admin/ListProblem";
 export { default as ListSuggestion } from "./Data Report/Admin/ListSuggestion";
 export { default as EditProblem } from "./Data Report/User/EditProblem";
+export { default as RegisterAdmin } from "./Data Report/Admin/RegisterAdmin"

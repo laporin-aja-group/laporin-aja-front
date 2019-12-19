@@ -1,255 +1,232 @@
-import React from 'react';
-import { withRouter } from "react-router-dom";
-import { Formik, ErrorMessage } from "formik";
+import React, { Component } from 'react'
+import { withRouter, Link } from 'react-router-dom'
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import { axiosReportsUsers } from '../../helpers';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import RegisterLogo from "../../Guest/banner.png"
-import Swal from "sweetalert2"
+import { Formik, ErrorMessage } from "formik";
 import ReactFilestack from 'filestack-react';
-import { verify, axiosReportsUsers } from "../../helpers"
+import swal from "sweetalert2"
 
-const useStyles = makeStyles(theme => ({
-    "@global": {
-        body: {
-            backgroundColor: theme.palette.common.white
-        }
-    },
-    paper: {
-        backgroundColor: "white",
-        border: "solid",
-        borderRadius: "3%",
-        marginTop: theme.spacing(8),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-    },
-    form: {
-        width: "100%", // Fix IE 11 issue.
-        marginTop: theme.spacing(1)
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-        width: "50%",
-        marginLeft: "25%",
-        display: "flex",
-        alignItems: "center"
-    },
-    filestack: {
-        margin: theme.spacing(3, 0, 2),
-        width: "30%",
-        display: "flex",
-        alignItems: "center"
+class EditProblem extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data : [],
+            problem : "",
+            location : "",
+            description : "",
+            image : "",
+            id : ""
+        };
     }
 
-}));
+    showData = () => {
+        const {
+            match: {
+                params: { id }
+            }
+        } = this.props;
+        
 
+        axiosReportsUsers()
+            .get(`report-users/id/${id}`)
+            .then(response => {
+                this.setState({ data: response.data.data[0]});
+                this.setState({ problem : response.data.data[0].problem})
+                this.setState({ location : response.data.data[0].location})
+                this.setState({ description : response.data.data[0].description})
+                this.setState({ image : response.data.data[0].image})
+                this.setState({ id : id})
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
-function Register(props) {
+    componentDidMount = () => {
+        this.showData();
+    }
 
-    const classes = useStyles();
-    let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
-    let fileStack = process.env.REACT_APP_API_KEY_FILESTACK;
+    render() {
+        let problem = this.state.problem
+        let location = this.state.location
+        let description = this.state.description
+        let image = this.state.image
 
+        let fileStack = process.env.REACT_APP_API_KEY_FILESTACK;
+        let urlImage = "";
+        
         return (
-            <Container component="main" maxWidth="xs">
-              <CssBaseline />
-              <div className={classes.paper}>
-                    <img src={RegisterLogo} alt="register" id="Login-Image"/>
+            <div>
+                <Paper style={{marginTop:"20px", marginLeft:"30%", marginRight:"30%"}}>
                 <Formik
                 initialValues={{
-                  problem: "",
-                  location: "",
-                  description: ""
+                  problem: problem!==""?problem:"",
+                  location: location!==""?location:"",
+                  description: description!==""?description:"",
+                  image: image!==""?image:""
                 }}
-                validate=""
+                enableReinitialize={true}
                 onSubmit={values => {
-                  
-                  if (values.problem === "" || values.location === "" || values.description === "" || values.image === null) {
-                    Swal.fire({
-                      icon: 'error',
-                      title: "Make sure your report is filled in correctly!",
-                    })
-                  } else {
-                  axiosReportsUsers()
-                    .post(`${urlLoginLive}report-users`, {...values, user : verify()._id})
-                    .then(response => {
-                      if (response.status === 200) {
-                        Swal.fire({
-                          icon: 'success',
-                          title: 'Add Report Successfully',
-                          text: 'Now you can check your report',
-                        }).then(response => {
-                          props.history.push("/report-users")
-                        })
-                      } else {
-                        Swal.fire({
-                          icon: 'error',
-                          title: 'There`s something error when you add report, please add report again'
-                        })
-                      }
-                    })
-                  }
-                }}
-                >
-                  {({
-                    values,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    setFieldValue,
-                    isSubmitting
-                  }) => (
-                <form 
-                className={classes.form}
-                onSubmit={handleSubmit}
-                noValidate
-                style={{ margin:"0px", padding:"10px 30px 30px"}}
-                >
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="problem"
-                        label="Problem"
-                        name="problem"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        defaultValue={values.problem}
-                        autoComplete="problem"
-                      />
-                       <p
-                      style={{
-                        color:"red",
-                        fontStyle:"italic"
-                      }}
-                      >
-                        <ErrorMessage name="problem" />
-                      </p>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="location"
-                        label="Detail Location"
-                        name="location"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        defaultValue={values.location}
-                        autoComplete="location"
-                        multiline
-                      />
-                       <p
-                      style={{
-                        color:"red",
-                        fontStyle:"italic"
-                      }}
-                      >
-                        <ErrorMessage name="location" />
-                      </p>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="outlined"
-                        rows="4"
-                        required
-                        fullWidth
-                        id="description"
-                        label="Description (Optional)"
-                        name="description"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        defaultValue={values.description}
-                        autoComplete="description"
-                        multiline
-                      />
-                       <p
-                      style={{
-                        color:"red",
-                        fontStyle:"italic"
-                      }}
-                      >
-                        <ErrorMessage name="description" />
-                      </p>
-                    </Grid>
-                    
-                    <ReactFilestack
-                    apikey={fileStack}
-                    actionOptions ={{
-                      accept: ["image/*", "video/*"]
-                    }}
-                    onSuccess={(res) => {
-                      setFieldValue(
-                        "image", res.filesUploaded[0].url
-                      );
-                      
-                    }}
-                    componentDisplayMode={{
-                        type: 'button',
-                        customText: 'Choose File',
-                        customClass: classes.filestack
-                    }}
-                    />
-
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                  >
-                    Submit
-                  </Button>
-                </form>
-                )}
+                    if (values.problem === problem && values.location === location && values.description === description && values.image === image) {
+                        swal.fire({
+                            title: 'No edited report, still continue?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes still continue'
+                          }).then((result) => {
+                            if (result.value) {
+                                axiosReportsUsers()
+                                    .put(`/report-users/${this.state.id}`, {problem : values.problem, location : values.location, description : values.description, image : values.image})
+                                    .then((response => {
+                                        if (response.status === 200) {
+                                            swal.fire({
+                                                icon: 'success',
+                                                title: 'Edit report successfully',
+                                            })
+                                            this.props.history.push('/report-users')
+                                        } else {
+                                            swal.fire({
+                                                icon: 'error',
+                                                title: 'Error when update report, please repeat again',
+                                            })
+                                        }
+                                }))
+                            }
+                          })
+                    } else {
+                        axiosReportsUsers()
+                            .put(`/report-users/${this.state.id}`, {problem : values.problem, location : values.location, description : values.description, image : values.image})
+                            .then((response => {
+                                if (response.status === 200) {
+                                    swal.fire({
+                                        icon: 'success',
+                                        title: 'Edit report successfully',
+                                    })
+                                    this.props.history.push('/report-users')
+                                } else {
+                                    swal.fire({
+                                        icon: 'error',
+                                        title: 'Error when update report, please repeat again',
+                                    })
+                                }
+                        }))
+                    }
+                }}>
+                    {({
+                      values,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      setFieldValue,
+                      isSubmitting  
+                    }) => {
+                        return(
+                        <form onSubmit={handleSubmit}
+                        noValidate>
+                            <div style={{padding:"20px"}}>
+                            <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="problem"
+                                label="Problem"
+                                name="problem"
+                                autoComplete="problem"
+                                value={values.problem}
+                                onChange={handleChange}
+                            />
+                            </Grid>
+                            </div>
+                            <div style={{padding:"20px"}}>
+                            <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="location"
+                                label="Detail Location"
+                                name="location"
+                                autoComplete="location"
+                                multiline
+                                value={values.location}
+                                onChange={handleChange}
+                            />
+                            </Grid>
+                            </div>
+                            <div style={{padding:"20px"}}>
+                            <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                rows="4"
+                                required
+                                fullWidth
+                                id="description"
+                                label="Description"
+                                name="description"
+                                autoComplete="description"
+                                multiline
+                                value={values.description}
+                                onChange={handleChange}
+                            />
+                            </Grid>
+                            </div>
+                            {urlImage === "" ? <div style={{padding:"20px"}}>
+                                        <img alt="report-problem" style={{width:"100%"}} src={this.state.image}/>
+                                    </div> : <div></div>}
+                            <div style={{padding:"20px"}}>
+                            <ReactFilestack
+                                apikey={fileStack}
+                                actionOptions ={{
+                                accept: ["image/*"]
+                                }}
+                                onSuccess={(res) => {
+                                setFieldValue(
+                                    "image", res.filesUploaded[0].url
+                                );
+                                urlImage = res.filesUploaded[0].filename;
+                                }}
+                                componentDisplayMode={{
+                                    type: 'button',
+                                    customText: 'Change photo',
+                                }}
+                            /><a style={{marginLeft:"10px"}}>{urlImage}</a>
+                            </div>
+                            
+                            <div style={{padding:"20px"}}>
+                                <Button
+                                    style={{marginBottom:"10px"}}
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary"
+                                    component={Link}
+                                    to="/report-users"
+                                >
+                                    Back
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    Edit
+                                </Button>
+                            </div>
+                        </form>
+                    )}}
                 </Formik>
-              </div>
-            </Container>
-          );   
+                    
+                </Paper>
+            </div>
+        )
+    }
 }
 
-export default withRouter(Register)
-// import React, { Component } from 'react'
-// import { withRouter } from 'react-router-dom'
-
-// class EditProblem extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       id: ""
-//     };
-//   }
-
-//   componentDidMount = () => {
-//     const {
-//       match: {
-//         params: {id}
-//       }
-//     } = this.props;
-
-//     this.setState({ id : id});
-
-//     console.log(this.state.id);
-    
-
-//   }
-
-//   render() {
-//     return (
-//       <div>
-        
-//       </div>
-//     )
-//   }
-// }
-
-// export default withRouter(EditProblem)
+export default withRouter(EditProblem)

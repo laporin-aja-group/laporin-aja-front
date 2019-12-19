@@ -184,7 +184,7 @@ const Team = props => {
             <Col xs={12} lg={3}>
               <div className="card text-center" style={{ marginTop: "25px" }}>
                 <div className="overflow">
-                  <img src="./Mega2.JPG" alt="Okay" width="200px" />
+                  <img src="./Mega3.jpg" alt="Okay" width="200px" />
                 </div>
                 <div className="card-body text-dark">
                   <h4 className="card-title">MEGA KASMIN</h4>
@@ -213,7 +213,7 @@ const Team = props => {
             <Col xs={12} lg={3}>
               <div className="card text-center" style={{ marginTop: "25px" }}>
                 <div className="overflow">
-                  <img src="Hafiz2.JPG" alt="Okay" width="200px" />
+                  <img src="Hafiz3.jpg" alt="Okay" width="200px" />
                 </div>
                 <div className="card-body text-dark">
                   <h4 className="card-title">HAFIZ YANUAR</h4>
@@ -243,11 +243,11 @@ const Team = props => {
             <Col xs={12} lg={3}>
               <div className="card text-center" style={{ marginTop: "25px" }}>
                 <div className="overflow">
-                  <img src="Adi2.JPG" alt="Okay" width="200px" />
+                  <img src="Adi3.jpg" alt="Okay" width="200px" />
                 </div>
                 <div className="card-body text-dark">
                   <h4 className="card-title">ADI NUGROHO</h4>
-                  <p>as Back End Developer</p>
+                  <p>as Full Stack Developer (Leader)</p>
 
                   <IconButton aria-label="add to favorites">
                     {" "}
@@ -273,7 +273,7 @@ const Team = props => {
             <Col xs={12} lg={3}>
               <div className="card text-center" style={{ marginTop: "25px" }}>
                 <div className="overflow">
-                  <img src="Apri2.JPG" alt="Okay" width="200px" />
+                  <img src="Apri3.jpg" alt="Okay" width="200px" />
                 </div>
                 <div className="card-body text-dark">
                   <h4 className="card-title">APRIADI</h4>

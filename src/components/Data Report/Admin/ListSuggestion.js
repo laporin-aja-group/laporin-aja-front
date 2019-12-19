@@ -37,7 +37,6 @@ class ListSuggestion extends React.Component {
               <TableRow>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}}>Name</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Email</TableCell>
-                <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Phone Number</TableCell>
                 <TableCell style={{fontSize:"110%", fontWeight:"700"}} align="right">Criticism and Suggestions</TableCell>
               </TableRow>
             </TableHead>
@@ -49,7 +48,6 @@ class ListSuggestion extends React.Component {
                         {item.name}
                       </TableCell>
                       <TableCell align="right">{item.email}</TableCell>
-                      <TableCell align="right">{item.phoneNumber}</TableCell>
                       <TableCell align="right">{item.suggestion}</TableCell>
                     </TableRow>
                   )

@@ -11,6 +11,7 @@ import {
   Login,
   Team,
   Register,
+  RegisterAdmin,
   LandingPage,
   Problem,
   ReportsUsers,
@@ -19,7 +20,10 @@ import {
   ListProblemAdmin,
   ListSuggestion,
   DetailReportUser,
-  EditProblem
+  OnDone,
+  AfterDone,
+  DetailReportAdmin,
+  EditProblem 
 } from "./components";
 
 class App extends Component {
@@ -42,6 +46,9 @@ class App extends Component {
               <Route path="/register">
                 <Register />
               </Route>
+              <Route path="/register-admin">
+                <RegisterAdmin />
+              </Route>
               <Route path="/team">
                 <Team />
               </Route>
@@ -59,6 +66,15 @@ class App extends Component {
               </Route>
               <Route path="/list-problem-admin">
                 <ListProblemAdmin />
+              </Route>
+              <Route path="/detail-admin/:id">
+                <DetailReportAdmin />
+              </Route>
+              <Route path="/ondone/:id">
+                <OnDone />
+              </Route>
+              <Route path="/afterdone/:id">
+                <AfterDone />
               </Route>
               <Route path="/list-suggestion">
                 <ListSuggestion />
