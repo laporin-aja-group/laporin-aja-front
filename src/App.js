@@ -17,6 +17,10 @@ import {
   ReportsUsers,
   ListProblem,
   Contact,
+  EditProfileUser,
+  ViewProfileUser,
+  EditProfileAdmin,
+  ViewProfileAdmin,
   ListProblemAdmin,
   ListSuggestion,
   DetailReportUser,
@@ -25,11 +29,11 @@ import {
   DetailReportAdmin,
   EditProblem 
 } from "./components";
+import { verify } from "./components/helpers"
 
 class App extends Component {
   render() {
     const isLogin = localStorage.getItem("token");
-    console.log(isLogin);
 
     return (
       <div className="demo-big-content">
@@ -41,13 +45,13 @@ class App extends Component {
                 <LandingPage />
               </Route>
               <Route path="/login">
-                <Login />
+                {!isLogin ? <Login /> : verify().role == "users" ? <Redirect to="/problem"/> : <Redirect to="/list-problem-admin"/>}
               </Route>
               <Route path="/register">
-                <Register />
+                {!isLogin ? <Register /> : verify().role == "users" ? <Redirect to="/problem"/> : <Redirect to="/list-problem-admin"/>}
               </Route>
               <Route path="/register-admin">
-                <RegisterAdmin />
+                {isLogin ? <RegisterAdmin /> : <Redirect to="/login" />}
               </Route>
               <Route path="/team">
                 <Team />
@@ -62,10 +66,22 @@ class App extends Component {
                 {isLogin ? <Problem /> : <Redirect to="/login" />}
               </Route>
               <Route path="/listproblem">
-                <ListProblem />
+                {isLogin ? <ListProblem /> : <Redirect to="/login" />}
               </Route>
               <Route path="/list-problem-admin">
-                <ListProblemAdmin />
+                {isLogin ? <ListProblemAdmin /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/view-profile">
+                {isLogin ? <ViewProfileUser /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/edit-profile-user">
+                {isLogin ? <EditProfileUser /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/edit-profile-admin">
+                {isLogin ? <EditProfileAdmin /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/view-profile-admin">
+                {isLogin ? <ViewProfileAdmin /> : <Redirect to="/login" />}
               </Route>
               <Route path="/detail-admin/:id">
                 <DetailReportAdmin />
@@ -77,10 +93,10 @@ class App extends Component {
                 <AfterDone />
               </Route>
               <Route path="/list-suggestion">
-                <ListSuggestion />
+                {isLogin ? <ListSuggestion /> : <Redirect to="/login" />}
               </Route>
               <Route path="/report-users">
-                <ReportsUsers />
+                {isLogin ? <ReportsUsers /> : <Redirect to="/login" />}
               </Route>
               <Route path="/detail-report/:id">
                 <DetailReportUser />

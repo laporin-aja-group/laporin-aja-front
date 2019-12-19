@@ -12,6 +12,7 @@ const logOut = () => {
       title: 'You are Loged out',
       icon: 'success'
   })
+  window.location.reload();
 };
 export default class Header extends Component {
   render() {

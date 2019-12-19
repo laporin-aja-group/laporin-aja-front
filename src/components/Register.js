@@ -63,7 +63,7 @@ function Register(props) {
                 validate={registerValidation}
                 onSubmit={values => {
                   axios
-                      .post(`${urlLoginLive}users`, {...values, role:"users"})
+                      .post(`${urlLoginLive}users`, {...values, role:"users", imageUrl : "https://cdn.filestackcontent.com/GY9qvJDpQOi6O8wM1zei"})
                       .then(response => {
                         if (response.status === 201) {
                           Swal.fire({
@@ -129,7 +129,6 @@ function Register(props) {
                         name="phoneNumber"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        defaultValue={values.fullName}
                         autoComplete="phoneNumber"
                         customInput={TextField} 
                         format="+62 (###) #### ####"/>

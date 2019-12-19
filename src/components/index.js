@@ -12,6 +12,10 @@ export { default as Header } from "./Header";
 export { default as OnDone } from "./Data Report/Admin/OnDone"
 export { default as AfterDone } from "./Data Report/Admin/AfterDone"
 export { default as AdminHeader } from "./Admin/Header";
+export { default as EditProfileUser } from "./Data Report/User/EditProfile"
+export { default as EditProfileAdmin } from "./Data Report/Admin/EditProfile"
+export { default as ViewProfileUser } from './Data Report/User/ViewProfile'
+export { default as ViewProfileAdmin } from "./Data Report/Admin/ViewProfile"
 export { default as DetailReportUser } from "./Data Report/User/DetailReport";
 export { default as DetailReportAdmin } from "./Data Report/Admin/DetailReport"
 export { default as ListProblemAdmin } from "./Data Report/Admin/ListProblem";

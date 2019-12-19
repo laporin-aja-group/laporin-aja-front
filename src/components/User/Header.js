@@ -12,6 +12,7 @@ const logOut = () => {
       title: 'You are Loged out',
       icon: 'success'
   })
+  window.location.reload();
 };
 export default class Header extends Component {
   render() {
@@ -47,7 +48,7 @@ export default class Header extends Component {
             color="inherit" 
             id="Login-Button"
             component={Link}
-            to="/login"
+            to="/"
             onClick={logOut}
             style={{ width:"7%", height:"60px" , color:"blue" , fontWeight:"bold", fontSize:"16px"}}
             >
