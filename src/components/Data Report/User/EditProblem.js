@@ -71,7 +71,7 @@ class EditProblem extends Component {
                 }}
                 enableReinitialize={true}
                 onSubmit={values => {
-                    if (values.problem === problem && values.location === location && values.description === description && values.image === image) {
+                    if (values.problem === problem && values.location === location && values.description === description && values.image === this.state.image) {
                         swal.fire({
                             title: 'No edited report, still continue?',
                             icon: 'warning',
@@ -177,9 +177,12 @@ class EditProblem extends Component {
                             />
                             </Grid>
                             </div>
-                            {urlImage === "" ? <div style={{padding:"20px"}}>
+                            <div style={{padding:"20px"}}>
+                                <img alt="report-problem" style={{width:"100%"}} src={image}/>
+                            </div>
+                            {/* {urlImage === "" ? <div style={{padding:"20px"}}>
                                         <img alt="report-problem" style={{width:"100%"}} src={this.state.image}/>
-                                    </div> : <div></div>}
+                                    </div> : <div></div>} */}
                             <div style={{padding:"20px"}}>
                             <ReactFilestack
                                 apikey={`AhoCB9ZadTsGGPJ7vtOp2z`}
@@ -190,7 +193,7 @@ class EditProblem extends Component {
                                 setFieldValue(
                                     "image", res.filesUploaded[0].url
                                 );
-                                urlImage = res.filesUploaded[0].filename;
+                                image = res.filesUploaded[0].url
                                 }}
                                 componentDisplayMode={{
                                     type: 'button',

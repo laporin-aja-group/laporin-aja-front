@@ -54,6 +54,7 @@ function Register(props) {
     let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
     let fileStack = process.env.REACT_APP_API_KEY_FILESTACK;
     let urlImage = "";
+    let image = ""
 
         return (
             <Container component="main" maxWidth="xs">
@@ -69,7 +70,7 @@ function Register(props) {
                 validate=""
                 onSubmit={values => {
                   
-                  if (values.problem === "" || values.location === "" || values.description === "" || urlImage === "") {
+                  if (values.problem === "" || values.location === "" || values.description === "" || image === "") {
                     Swal.fire({
                       icon: 'error',
                       title: "Make sure your report is filled in correctly!",
@@ -181,6 +182,10 @@ function Register(props) {
                         <ErrorMessage name="description" />
                       </p>
                     </Grid>
+
+                    <Grid item xs={12}>
+                      {image === "" ? <div></div> : <img alt="report-problem" style={{width:"100%"}} src={image}/>}
+                    </Grid>
                     
                     <ReactFilestack
                     apikey={`AhoCB9ZadTsGGPJ7vtOp2z`}
@@ -191,7 +196,7 @@ function Register(props) {
                       setFieldValue(
                         "image", res.filesUploaded[0].url
                       );
-                      urlImage = res.filesUploaded[0].filename;
+                      image = res.filesUploaded[0].url;
                     }}
                     componentDisplayMode={{
                         type: 'button',

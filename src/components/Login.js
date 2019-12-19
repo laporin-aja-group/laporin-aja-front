@@ -90,13 +90,14 @@ function Login(props) {
                                         swal.fire({
                                             icon: 'success',
                                             title: 'Login Successfully',
+                                        }).then((result) => {
+                                            localStorage.setItem(
+                                                "token",
+                                                JSON.stringify(response.data.data.token)
+                                            );
+                                            props.history.push("/");
+                                            window.location.reload();
                                         })
-                                        localStorage.setItem(
-                                            "token",
-                                            JSON.stringify(response.data.data.token)
-                                        );
-                                        props.history.push("/");
-                                        window.location.reload();
                                     }
                                 }
                             })
