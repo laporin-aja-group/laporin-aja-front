@@ -69,7 +69,7 @@ class ViewProfile extends Component {
                         <form onSubmit={handleSubmit}
                         noValidate>
                             <div style={{padding:"20px", textAlign:"center"}}>
-                                <img alt="profile-image" style={{borderRadius:"50%", width:"80%", backgroundColor:"white"}} src={imageUrl}></img>
+                                <img alt="profile-image" style={{width:"85%"}} src={imageUrl}></img>
                             </div>
                             <div style={{padding:"20px"}}>
                             <TextField

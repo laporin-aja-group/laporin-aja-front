@@ -185,7 +185,7 @@ class EditProfile extends Component {
                         <form onSubmit={handleSubmit}
                         noValidate>
                             <div style={{padding:"20px", textAlign:"center"}}>
-                                <img alt="profile-image" style={{borderRadius:"50%", width:"80%", backgroundColor:"white"}} src={imageUrl}></img>
+                                <img alt="profile-image" style={{width:"85%"}} src={imageUrl}></img>
                                     <div style={{marginTop:"10px"}}>
                                         <ReactFilestack
                                             apikey={`AhoCB9ZadTsGGPJ7vtOp2z`}

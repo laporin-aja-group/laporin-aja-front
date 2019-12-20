@@ -62,7 +62,7 @@ export default function SwipeableTemporaryDrawer() {
           <ListItemText>Welcome, {namee}</ListItemText>
         </ListItem>
 
-        {['List Problem'].map((text, index) => (
+        {['List User Report'].map((text, index) => (
           <ListItem 
           button 
           key={text}
