@@ -60,8 +60,10 @@ function RegisterAdmin(props) {
                 }}
                 validate={registerValidation}
                 onSubmit={values => {
+                  console.log(urlLoginLive);
+                  
                   axios
-                      .post(`${urlLoginLive}users`, {...values, role:"admin"})
+                      .post(`${urlLoginLive}users`, {...values, role:"admin", imageUrl : "https://cdn.filestackcontent.com/GY9qvJDpQOi6O8wM1zei"})
                       .then(response => {
                         if (response.status === 201) {
                           Swal.fire({
