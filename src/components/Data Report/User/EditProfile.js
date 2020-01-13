@@ -58,7 +58,6 @@ class EditProfile extends Component {
                 axiosReportsUsers()
                     .post(`/users/checkpassword`, { email : verify().email, password : data})
                     .then(response => {
-                        console.log(response.data.message);
                         if (response.data.message === "The password you entered is correct") {
                             Swal.mixin({
                                 input: 'password',
