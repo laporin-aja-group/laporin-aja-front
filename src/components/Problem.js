@@ -85,6 +85,7 @@ function Register(props) {
                           title: 'Add Report Successfully',
                           text: 'Now you can check your report',
                         }).then(response => {
+                          console.log(response)                          
                           props.history.push("/report-users")
                         })
                       } else {

@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 function Login(props) {
     const classes = useStyles();
     let urlLoginLive = process.env.REACT_APP_API_LOGIN_LIVE;
+    console.log(urlLoginLive);
 
     return (
         <Container 
